@@ -42,6 +42,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\fixcar-daos\fixcar-daos.csproj">
+      <Project>{9e1aa4ed-6c09-449d-b0fa-89c442675085}</Project>
+      <Name>fixcar-daos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\fixcar-entidades\fixcar-entidades.csproj">
+      <Project>{b4f8f4eb-39ab-4485-b550-5b89c2788340}</Project>
+      <Name>fixcar-entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

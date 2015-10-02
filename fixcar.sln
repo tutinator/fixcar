@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "fixcar-web", "fixcar-web\", "{F29B84DC-DF4D-4870-8E90-890F60FEEBB8}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		ProjectReferences = "{b4f8f4eb-39ab-4485-b550-5b89c2788340}|fixcar-entidades.dll;{3ebce8b1-5ac3-4ad4-bd11-980438733dc0}|fixcar-negocio.dll;{9E1AA4ED-6C09-449D-B0FA-89C442675085}|fixcar-daos.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_50665"
 		Debug.AspNetCompiler.PhysicalPath = "fixcar-web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50665\"
