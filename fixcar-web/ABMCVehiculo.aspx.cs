@@ -1,5 +1,6 @@
 ﻿using System;
 using fixcar_negocio;
+using fixcar_entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         if (!IsPostBack)
         {
             CargarGrilla();
+            CargarDDLs();
         }
     }
 
@@ -21,7 +23,20 @@ public partial class ABMCVehiculo : System.Web.UI.Page
     {
         gvVehiculos.DataSource = GestorVehiculos.ObtenerTodos();
         gvVehiculos.DataBind();
+    }
+
+    private void CargarDDLs()
+    {
+        List<Marca> lista = GestorMarcas.ObtenerTodas();
+        ddlMarca.DataSource = lista;
+        ddlMarca.DataTextField = "nombreMarca";
+        ddlMarca.DataValueField = "idMarca";
+        ddlMarca.DataBind();
+        
+    }
+    protected void gvVehiculos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
 
     }
-    
 }
