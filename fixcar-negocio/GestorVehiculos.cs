@@ -16,9 +16,23 @@ namespace fixcar_negocio
             return list;
         }
 
-        public static void insertarVehiculo(Vehiculo v)
+        public static Vehiculo ObtenerPorId(int id)
         {
-            VehiculoDAO.insertarVehiculo(v);
+            return VehiculoDAO.ObtenerPorId(id);
+        }
+
+        public static void InsertarVehiculo(Vehiculo v)
+        {
+            VehiculoDAO.InsertarVehiculo(v);
+        }
+        public static void ActualizarVehiculo(Vehiculo v)
+        {
+            VehiculoDAO.ActualizarVehiculo(v);
+        }
+
+        public static void EliminarVehiculo(Vehiculo v)
+        {
+            VehiculoDAO.EliminarVehiculo(v);
         }
     }
 }
