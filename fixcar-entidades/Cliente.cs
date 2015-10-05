@@ -14,7 +14,7 @@ namespace fixcar_entidades
         public TipoDocumento tipoDocumento { get; set; }
         public int numeroDocumento { get; set; }
         public DateTime fechaNacimiento { get; set; }
-        public bool genero { get; set; }
+        public bool? genero { get; set; }
         public string nombreCompleto { get; set; }
 
         public void completarNombre()
