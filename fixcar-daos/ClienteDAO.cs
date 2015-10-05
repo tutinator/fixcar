@@ -14,7 +14,7 @@ namespace fixcar_daos
         public static List<Cliente> ObtenerTodos()
         {
             List<Cliente> listaClientes = new List<Cliente>();            
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa"; 
             SqlConnection con = new SqlConnection(cadena);            
             try
             {
@@ -56,7 +56,7 @@ namespace fixcar_daos
 
         public static void InsertarCliente(Cliente c)
         {
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -88,16 +88,17 @@ namespace fixcar_daos
 
         public static void ActualizarCliente(Cliente c)
         {
-            string cadena = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
                 con.Open();
-                string sql = "UPDATE Clientes SET apellido = @apellido, nombre = @nombre, idTipoDocumento = @idTipoDocumento,  numeroDocumento = @idTipoDocumento, fechaNacimiento=@fechaNacimiento, genero=@genero WHERE idCliente = @idCliente)";
+                string sql = "UPDATE Clientes SET apellido = @apellido, nombre = @nombre, idTipoDocumento = @idTipoDocumento,  numeroDocumento = @numeroDocumento, fechaNacimiento=@fechaNacimiento, genero=@genero WHERE idCliente = @idCliente";
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
                 cmd.Parameters.AddWithValue("@apellido", c.apellido);
                 cmd.Parameters.AddWithValue("@nombre", c.nombre);
                 cmd.Parameters.AddWithValue("@idTipoDocumento", c.tipoDocumento.idTipoDocumento);
@@ -140,6 +141,49 @@ namespace fixcar_daos
             {
                 con.Close();
             }
+        }
+
+        public static Cliente ObtenerPorId(int id)
+        {
+            Cliente c = new Cliente();
+            string cadenaConexion = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = cadenaConexion;
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+
+            string consulta = "SELECT c.idCliente, c.apellido, c.nombre, t.idTipoDocumento, t.nombreTipoDocumento, c.numeroDocumento, c.fechaNacimiento, c.genero FROM Clientes c JOIN TiposDocumento T ON (c.idTipoDocumento = t.idTipoDocumento) WHERE c.idCliente = @idCliente"; 
+            cmd.CommandText = consulta;
+            cmd.Parameters.AddWithValue("@idCliente", id);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+            try { 
+            while (dr.Read())
+            {
+
+                c.idCliente = (int)dr["idCliente"];
+                c.apellido = dr["apellido"].ToString();
+                c.nombre = dr["nombre"].ToString();
+                c.numeroDocumento = (int)dr["numeroDocumento"];
+                c.fechaNacimiento= DateTime.Parse(dr["fechaNacimiento"].ToString());
+                c.genero = (bool?) dr["genero"];
+                TipoDocumento t = new TipoDocumento();
+                t.idTipoDocumento = (int)dr["idTipoDocumento"];
+                t.nombreTipoDocumento = dr["nombreTipoDocumento"].ToString();
+                c.tipoDocumento = t;
+
+            }
+            }catch (SqlException e)
+            {
+                throw new ApplicationException("Error al obtener cliente");
+            }finally
+            {
+                dr.Close();
+                cn.Close();
+            }
+
+            return c;
         }
 
     }
