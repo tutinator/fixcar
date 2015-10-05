@@ -12,17 +12,15 @@
 </head>
 <body>
     <form id="form1" runat="server" class="container">
-
-        
-            <div class="page-header">
+        <div class="page-header">
                 <h1>Gestión de Vehículos</h1>
                 </div>
 
                 <div class="row">   
                     <div class="col-md-8">
-                        <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged">
+                        <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged" DataKeyNames="idVehiculo">
                             <Columns>
-                                <asp:BoundField DataField="idVehiculo" HeaderText="ID" />
+                                <asp:BoundField DataField="idVehiculo" HeaderText="ID" Visible="false" />
                                 <asp:BoundField DataField="dominio" HeaderText="Dominio" />
                                 <asp:BoundField DataField="marca.nombreMarca" HeaderText="Marca" />
                                 <asp:BoundField DataField="cliente.nombreCompleto" HeaderText="Propietario" />
@@ -64,9 +62,9 @@
                         <asp:CheckBox ID="cbPintura" runat="server" Text="Pintura Dañada"/>
                                      </div>
                         <div class="btn-group" role="group">
+                            <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" />
                             <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar" runat="server" OnClick="btnGuardar_Click" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" />
-                            <button type="reset" class="btn btn-default" value="Limpiar">Limpiar</button>
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" />     
                             
                         </div>
                         

@@ -24,7 +24,7 @@ namespace fixcar_daos
             cmd.CommandText = consulta;
 
             SqlDataReader dr = cmd.ExecuteReader();
-            
+
             while (dr.Read())
             {
                 Vehiculo v = new Vehiculo();
@@ -36,8 +36,8 @@ namespace fixcar_daos
 
                 Marca m = new Marca();
                 m.idMarca = (int)dr["idMarca"];
-                m.nombreMarca = dr["nombreMarca"].ToString();                
-                
+                m.nombreMarca = dr["nombreMarca"].ToString();
+
                 v.marca = m;
 
                 Cliente c = new Cliente();
@@ -92,7 +92,7 @@ namespace fixcar_daos
                 c.completarNombre();
                 v.cliente = c;
 
-           }
+            }
 
             dr.Close();
             cn.Close();
@@ -100,7 +100,7 @@ namespace fixcar_daos
 
         }
 
-        public static void insertarVehiculo(Vehiculo v)
+        public static void InsertarVehiculo(Vehiculo v)
         {
             string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
@@ -131,5 +131,61 @@ namespace fixcar_daos
                 con.Close();
             }
         }
-    }
+
+        public static void ActualizarVehiculo(Vehiculo v)
+        {
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            SqlConnection con = new SqlConnection(cadena);
+            try
+            {
+                con.Open();
+                string sql = "UPDATE Vehiculos SET dominio = @dominio, km = @km,  pinturaDanada = @pinturaDanada, idMarca = @idMarca, idCliente=@idCliente, ano = @ano WHERE idVehiculo = @idVehiculo";
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@idVehiculo", v.idVehiculo);
+                cmd.Parameters.AddWithValue("@dominio", v.dominio);
+                cmd.Parameters.AddWithValue("@km", v.km);
+                cmd.Parameters.AddWithValue("@pinturaDanada", v.pinturaDanada);
+                cmd.Parameters.AddWithValue("@idMarca", v.marca.idMarca);
+                cmd.Parameters.AddWithValue("@idCliente", v.cliente.idCliente);
+                cmd.Parameters.AddWithValue("@ano", v.ano);
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                throw new ApplicationException("Error al actualizar Vehiculo: " + e.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public static void EliminarVehiculo(Vehiculo v)
+        {
+            string cadena = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            SqlConnection con = new SqlConnection(cadena);
+            try
+            {
+                con.Open();
+                string sql = "DELETE FROM Vehiculo WHERE idVehiculo = @idVehiculo";
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (SqlException e)
+            {
+                throw new ApplicationException("Error al eliminar Cliente");
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
 }

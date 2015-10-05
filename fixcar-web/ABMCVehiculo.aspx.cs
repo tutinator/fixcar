@@ -13,12 +13,19 @@ public partial class ABMCVehiculo : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            CargarGrilla();
-            CargarDDLs();
+            Inicio();
         }
     }
 
+    private void Inicio()
+    {
+        CargarGrilla();
+        CargarDDLs();
+        btnEliminar.Enabled = false;
+        ViewState["idVehiculo"] = null;
+        txtIdVehiculo.Text = string.Empty;
 
+    }
     private void CargarGrilla()
     {
         gvVehiculos.DataSource = GestorVehiculos.ObtenerTodos();
@@ -50,9 +57,10 @@ public partial class ABMCVehiculo : System.Web.UI.Page
     }
     protected void gvVehiculos_SelectedIndexChanged(object sender, EventArgs e)
     {
-        int idVehiculo = int.Parse(gvVehiculos.SelectedRow.Cells[0].Text);
+        int idVehiculo = (int)gvVehiculos.SelectedDataKey.Value;
         Vehiculo v = GestorVehiculos.ObtenerPorId(idVehiculo);
 
+        ViewState["idVehiculo"] = v.idVehiculo.ToString();
         txtIdVehiculo.Text = v.idVehiculo.ToString();
         txtDominio.Text = v.dominio.ToString();
         ddlCliente.SelectedValue = v.cliente.idCliente.ToString();
@@ -63,6 +71,8 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         if (v.pinturaDanada) cbPintura.Checked = true;
         else cbPintura.Checked = false;
 
+        btnEliminar.Enabled = true;
+        txtDominio.Enabled = false;
     }
 
     protected void btnGuardar_Click(object sender, EventArgs e)
@@ -74,7 +84,7 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         int ano = int.Parse(txtAno.Text);
         bool pinturaDanada = false;
         if (cbPintura.Checked) pinturaDanada = true;
-        
+
         Vehiculo v = new Vehiculo();
         v.dominio = dominio;
         v.ano = ano;
@@ -89,7 +99,40 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         m.idMarca = idMarca;
         v.marca = m;
 
-        GestorVehiculos.insertarVehiculo(v);
-        CargarGrilla();
+        if (ViewState["idVehiculo"] == null)
+        {
+            //NUEVO VEHICULO     
+            GestorVehiculos.InsertarVehiculo(v);
+        }
+        else
+        {
+            //ACTUALIZAR VEHICULO
+            v.idVehiculo = int.Parse(ViewState["idVehiculo"].ToString());
+            GestorVehiculos.ActualizarVehiculo(v);
+        }
+        Inicio();
+    }
+
+    protected void btnNuevo_Click(object sender, EventArgs e)
+    {
+        Nuevo();
+    }
+
+    protected void Nuevo()
+    {
+        ddlCliente.ClearSelection();
+        ddlCliente.SelectedIndex = 0;
+        ddlMarca.ClearSelection();
+        ddlMarca.SelectedIndex = 0;
+
+        ViewState["idVehiculo"] = null;
+        txtIdVehiculo.Text = string.Empty;
+        txtAno.Text = string.Empty;
+        txtDominio.Text = string.Empty;        
+        txtKm.Text = string.Empty;
+
+        txtDominio.Enabled = true;
+        btnEliminar.Enabled = false;
+
     }
 }
