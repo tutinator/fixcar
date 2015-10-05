@@ -29,5 +29,10 @@ namespace fixcar_negocio
         {
             VehiculoDAO.ActualizarVehiculo(v);
         }
+
+        public static void EliminarVehiculo(Vehiculo v)
+        {
+            VehiculoDAO.EliminarVehiculo(v);
+        }
     }
 }

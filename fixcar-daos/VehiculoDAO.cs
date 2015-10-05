@@ -30,7 +30,10 @@ namespace fixcar_daos
                 Vehiculo v = new Vehiculo();
                 v.idVehiculo = (int)dr["idVehiculo"];
                 v.dominio = dr["dominio"].ToString();
-                v.km = (int?)dr["km"];
+
+                if (dr["km"] == DBNull.Value) v.km = null;                    
+                else v.km = (int?)dr["km"];
+
                 v.pinturaDanada = (Boolean)dr["pinturaDanada"];
                 v.ano = (int)dr["ano"];
 
@@ -75,7 +78,10 @@ namespace fixcar_daos
             {
                 v.idVehiculo = (int)dr["idVehiculo"];
                 v.dominio = dr["dominio"].ToString();
-                v.km = (int?)dr["km"];
+
+                if (dr["km"] == DBNull.Value) v.km = null;
+                else v.km = (int?)dr["km"];
+
                 v.pinturaDanada = (Boolean)dr["pinturaDanada"];
                 v.ano = (int)dr["ano"];
 
@@ -114,7 +120,10 @@ namespace fixcar_daos
                 cmd.Connection = con;
 
                 cmd.Parameters.AddWithValue("@dominio", v.dominio);
-                cmd.Parameters.AddWithValue("@km", v.km);
+
+                if (!(v.km == null)) cmd.Parameters.AddWithValue("@km", v.km);
+                else cmd.Parameters.AddWithValue("@km", DBNull.Value);
+
                 cmd.Parameters.AddWithValue("@pinturaDanada", v.pinturaDanada);
                 cmd.Parameters.AddWithValue("@idMarca", v.marca.idMarca);
                 cmd.Parameters.AddWithValue("@idCliente", v.cliente.idCliente);
@@ -146,7 +155,10 @@ namespace fixcar_daos
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@idVehiculo", v.idVehiculo);
                 cmd.Parameters.AddWithValue("@dominio", v.dominio);
-                cmd.Parameters.AddWithValue("@km", v.km);
+
+                if (!(v.km == null))cmd.Parameters.AddWithValue("@km", v.km);                
+                else cmd.Parameters.AddWithValue("@km", DBNull.Value);        
+                       
                 cmd.Parameters.AddWithValue("@pinturaDanada", v.pinturaDanada);
                 cmd.Parameters.AddWithValue("@idMarca", v.marca.idMarca);
                 cmd.Parameters.AddWithValue("@idCliente", v.cliente.idCliente);
@@ -165,27 +177,28 @@ namespace fixcar_daos
 
         public static void EliminarVehiculo(Vehiculo v)
         {
-            string cadena = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
                 con.Open();
-                string sql = "DELETE FROM Vehiculo WHERE idVehiculo = @idVehiculo";
+                string sql = "DELETE FROM Vehiculos WHERE idVehiculo = @idVehiculo";
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = con;
-                cmd.Parameters.AddWithValue("@idCliente", c.idCliente);
+                cmd.Parameters.AddWithValue("@idVehiculo", v.idVehiculo);
                 cmd.ExecuteNonQuery();
 
             }
             catch (SqlException e)
             {
-                throw new ApplicationException("Error al eliminar Cliente");
+                throw new ApplicationException("Error al eliminar Vehiculo");
             }
             finally
             {
                 con.Close();
             }
         }
+    }
 }

@@ -45,6 +45,8 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         ddlMarca.DataTextField = "nombreMarca";
         ddlMarca.DataValueField = "idMarca";
         ddlMarca.DataBind();
+        ddlMarca.Items.Insert(0, new ListItem("Seleccione la marca", "0"));
+        ddlMarca.SelectedIndex = 0;
     }
 
     private void CargarDDLClientes()
@@ -54,6 +56,8 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         ddlCliente.DataTextField = "nombreCompleto";
         ddlCliente.DataValueField = "idCliente";
         ddlCliente.DataBind();
+        ddlCliente.Items.Insert(0, new ListItem("Seleccione el propietario", "0"));
+        ddlCliente.SelectedIndex = 0;
     }
     protected void gvVehiculos_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -80,13 +84,17 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         string dominio = txtDominio.Text;
         int idCliente = int.Parse(ddlCliente.SelectedValue);
         int idMarca = int.Parse(ddlMarca.SelectedValue);
-        int km = int.Parse(txtKm.Text);
+        int? km = null;
+        if(!string.IsNullOrWhiteSpace(txtKm.Text))
+        {
+            km = int.Parse(txtKm.Text);
+        }
         int ano = int.Parse(txtAno.Text);
         bool pinturaDanada = false;
         if (cbPintura.Checked) pinturaDanada = true;
 
         Vehiculo v = new Vehiculo();
-        v.dominio = dominio;
+        v.dominio = dominio.ToUpper();
         v.ano = ano;
         v.km = km;
         v.pinturaDanada = pinturaDanada;
@@ -110,11 +118,13 @@ public partial class ABMCVehiculo : System.Web.UI.Page
             v.idVehiculo = int.Parse(ViewState["idVehiculo"].ToString());
             GestorVehiculos.ActualizarVehiculo(v);
         }
-        Inicio();
+
+        Response.Redirect(Request.RawUrl);
     }
 
     protected void btnNuevo_Click(object sender, EventArgs e)
     {
+        
         Nuevo();
     }
 
@@ -134,5 +144,17 @@ public partial class ABMCVehiculo : System.Web.UI.Page
         txtDominio.Enabled = true;
         btnEliminar.Enabled = false;
 
+    }
+
+    protected void btnEliminar_Click(object sender, EventArgs e)
+    {
+        if(!(ViewState["idVehiculo"]==null))
+        {
+            Vehiculo v = new Vehiculo();            
+            v.idVehiculo = int.Parse(ViewState["idVehiculo"].ToString());
+            GestorVehiculos.EliminarVehiculo(v);
+            Response.Redirect(Request.RawUrl);
+        }
+        
     }
 }
