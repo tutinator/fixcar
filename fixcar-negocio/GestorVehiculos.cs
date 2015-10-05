@@ -16,6 +16,11 @@ namespace fixcar_negocio
             return list;
         }
 
+        public static Vehiculo ObtenerPorId(int id)
+        {
+            return VehiculoDAO.ObtenerPorId(id);
+        }
+
         public static void insertarVehiculo(Vehiculo v)
         {
             VehiculoDAO.insertarVehiculo(v);

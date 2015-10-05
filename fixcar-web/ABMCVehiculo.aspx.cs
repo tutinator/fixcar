@@ -50,7 +50,18 @@ public partial class ABMCVehiculo : System.Web.UI.Page
     }
     protected void gvVehiculos_SelectedIndexChanged(object sender, EventArgs e)
     {
+        int idVehiculo = int.Parse(gvVehiculos.SelectedRow.Cells[0].Text);
+        Vehiculo v = GestorVehiculos.ObtenerPorId(idVehiculo);
 
+        txtIdVehiculo.Text = v.idVehiculo.ToString();
+        txtDominio.Text = v.dominio.ToString();
+        ddlCliente.SelectedValue = v.cliente.idCliente.ToString();
+        ddlMarca.SelectedValue = v.marca.idMarca.ToString();
+        txtKm.Text = v.km.ToString();
+        txtAno.Text = v.ano.ToString();
+
+        if (v.pinturaDanada) cbPintura.Checked = true;
+        else cbPintura.Checked = false;
 
     }
 

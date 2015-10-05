@@ -55,6 +55,51 @@ namespace fixcar_daos
             return list;
         }
 
+        public static Vehiculo ObtenerPorId(int id)
+        {
+            Vehiculo v = new Vehiculo();
+            string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = cadenaConexion;
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+
+            string consulta = "SELECT V.idVehiculo, V.dominio, V.km, pinturaDanada, V.idMarca, M.nombreMarca, V.idCliente, C.nombre, C.apellido, V.ano FROM Vehiculos V JOIN Marcas M ON V.idMarca = M.idMarca JOIN Clientes C ON C.idCliente = V.idCliente WHERE V.idVehiculo = @idVehiculo";
+            cmd.CommandText = consulta;
+            cmd.Parameters.AddWithValue("@idVehiculo", id);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                v.idVehiculo = (int)dr["idVehiculo"];
+                v.dominio = dr["dominio"].ToString();
+                v.km = (int?)dr["km"];
+                v.pinturaDanada = (Boolean)dr["pinturaDanada"];
+                v.ano = (int)dr["ano"];
+
+                Marca m = new Marca();
+                m.idMarca = (int)dr["idMarca"];
+                m.nombreMarca = dr["nombreMarca"].ToString();
+
+                v.marca = m;
+
+                Cliente c = new Cliente();
+                c.idCliente = (int)dr["idCliente"];
+                c.apellido = dr["apellido"].ToString();
+                c.nombre = dr["nombre"].ToString();
+                c.completarNombre();
+                v.cliente = c;
+
+           }
+
+            dr.Close();
+            cn.Close();
+            return v;
+
+        }
+
         public static void insertarVehiculo(Vehiculo v)
         {
             string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

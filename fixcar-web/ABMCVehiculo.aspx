@@ -22,7 +22,7 @@
                     <div class="col-md-8">
                         <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged">
                             <Columns>
-                                <asp:BoundField DataField="idVehiculo" HeaderText="idVehiculo" Visible="false" />
+                                <asp:BoundField DataField="idVehiculo" HeaderText="ID" />
                                 <asp:BoundField DataField="dominio" HeaderText="Dominio" />
                                 <asp:BoundField DataField="marca.nombreMarca" HeaderText="Marca" />
                                 <asp:BoundField DataField="cliente.nombreCompleto" HeaderText="Propietario" />
@@ -64,11 +64,12 @@
                         <asp:CheckBox ID="cbPintura" runat="server" Text="Pintura Dañada"/>
                                      </div>
                         <div class="btn-group" role="group">
-                    
-                        <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar" runat="server" OnClick="btnGuardar_Click"/>
-                  
-                        <button type="reset" class="btn btn-default" value="Limpiar">Limpiar</button>
+                            <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar" runat="server" OnClick="btnGuardar_Click" />
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" />
+                            <button type="reset" class="btn btn-default" value="Limpiar">Limpiar</button>
+                            
                         </div>
+                        
                     </div>
                 </div>           
             <footer class="footer">
