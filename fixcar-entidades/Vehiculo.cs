@@ -12,8 +12,8 @@ namespace fixcar_entidades
         public string dominio { get; set; }
         public int? km { get; set; }
         public Boolean pinturaDanada { get; set; }
-        public int idMarca { get; set; }
-        public int idCliente { get; set; }
+        public Marca marca { get; set; }
+        public Cliente cliente { get; set; }
         public int ano { get; set; }
 
         

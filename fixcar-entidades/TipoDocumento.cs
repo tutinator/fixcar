@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace fixcar_entidades
 {
-    class TiposDocumento
+    public class TipoDocumento
     {
-        private int idTipoDocumento { get; set; }
-        private string nombreTipoDocumento { get; set; }
+        public int idTipoDocumento { get; set; }
+        public string nombreTipoDocumento { get; set; }
     }
 }

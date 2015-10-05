@@ -23,12 +23,12 @@
                         <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged">
                             <Columns>
                                 <asp:BoundField DataField="idVehiculo" HeaderText="idVehiculo" Visible="false" />
-                                <asp:BoundField DataField="dominio" HeaderText="Dominio"/>
+                                <asp:BoundField DataField="dominio" HeaderText="Dominio" />
+                                <asp:BoundField DataField="marca.nombreMarca" HeaderText="Marca" />
+                                <asp:BoundField DataField="cliente.nombreCompleto" HeaderText="Propietario" />
+                                <asp:BoundField DataField="ano" HeaderText="Modelo" />
                                 <asp:BoundField DataField="km" HeaderText="Kilometraje" />
                                 <asp:BoundField DataField="pinturaDanada" HeaderText="Pintura Dañada" />
-                                <asp:BoundField DataField="idMarca" HeaderText="Marca" />
-                                <asp:BoundField DataField="idCliente" HeaderText="Cliente" />
-                                <asp:BoundField DataField="ano" HeaderText="Modelo" />
                                 <asp:CommandField SelectText="Editar" ShowSelectButton="True" />
                             </Columns>
                         </asp:GridView>
@@ -65,7 +65,7 @@
                                      </div>
                         <div class="btn-group" role="group">
                     
-                        <asp:Button ID="btnGuardar"  CssClass="btn btn-success" Text="Guardar" runat="server"/>
+                        <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar" runat="server" OnClick="btnGuardar_Click"/>
                   
                         <button type="reset" class="btn btn-default" value="Limpiar">Limpiar</button>
                         </div>

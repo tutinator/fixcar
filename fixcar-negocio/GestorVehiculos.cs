@@ -15,5 +15,10 @@ namespace fixcar_negocio
             List<Vehiculo> list = VehiculoDAO.ObtenerTodos();
             return list;
         }
+
+        public static void insertarVehiculo(Vehiculo v)
+        {
+            VehiculoDAO.insertarVehiculo(v);
+        }
     }
 }
