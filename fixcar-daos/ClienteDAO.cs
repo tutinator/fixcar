@@ -14,7 +14,7 @@ namespace fixcar_daos
         public static List<Cliente> ObtenerTodos()
         {
             List<Cliente> listaClientes = new List<Cliente>();            
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa"; 
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
             SqlConnection con = new SqlConnection(cadena);            
             try
             {
@@ -37,7 +37,8 @@ namespace fixcar_daos
                     tipoDoc.idTipoDocumento = (int)dr["idTipoDocumento"];
                     tipoDoc.nombreTipoDocumento = dr["nombreTipoDocumento"].ToString();
                     c.tipoDocumento = tipoDoc;
-                    c.genero = (bool)dr["genero"];
+                    c.genero = (bool?)dr["genero"];
+                    c.generarString();
                     c.completarNombre();
 
                     listaClientes.Add(c);
@@ -56,7 +57,7 @@ namespace fixcar_daos
 
         public static void InsertarCliente(Cliente c)
         {
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -88,7 +89,7 @@ namespace fixcar_daos
 
         public static void ActualizarCliente(Cliente c)
         {
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -119,7 +120,7 @@ namespace fixcar_daos
 
         public static void EliminarCliente(Cliente c)
         {
-            string cadena = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -146,7 +147,7 @@ namespace fixcar_daos
         public static Cliente ObtenerPorId(int id)
         {
             Cliente c = new Cliente();
-            string cadenaConexion = "Data Source='Franco-HP\\sqlexpress';Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = cadenaConexion;
             cn.Open();
