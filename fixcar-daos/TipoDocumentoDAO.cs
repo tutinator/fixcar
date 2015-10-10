@@ -14,7 +14,7 @@ namespace fixcar_daos
         public static List<TipoDocumento> obtenerTodos()
         {
             List<TipoDocumento> listaTiposDocumento = new List<TipoDocumento>();
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -50,7 +50,7 @@ namespace fixcar_daos
         public static void insertarTipoDocumento(TipoDocumento t)
     {
 
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
         try
         {
@@ -77,7 +77,7 @@ namespace fixcar_daos
     public static void eliminarTipoDocumento(TipoDocumento t)
     {
 
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
         try
         {
@@ -103,7 +103,7 @@ namespace fixcar_daos
 
     public static void actualizarTipoDocumento(TipoDocumento t)
     {
-            string cadena = "Data Source=Franco-HP\\sqlexpress;Initial Catalog=fixcardb;Persist Security Info=True;User ID=sa;Password=sa";
+            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
         try
         {

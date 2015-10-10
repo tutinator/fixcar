@@ -16,10 +16,22 @@ namespace fixcar_entidades
         public DateTime fechaNacimiento { get; set; }
         public bool? genero { get; set; }
         public string nombreCompleto { get; set; }
+        public string generoString { get; set; }
 
         public void completarNombre()
         {
             nombreCompleto = apellido + ", " + nombre;
+        }
+
+        public void generarString()
+        {
+            if (genero == true) generoString = "Femenino";
+            else
+            {
+                if (genero == false) generoString = "Masculino";
+                else generoString = "";
+            }
+            
         }
 
     }

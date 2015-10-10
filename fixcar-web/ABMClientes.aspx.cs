@@ -94,7 +94,7 @@ public partial class ABMClientes : System.Web.UI.Page
         int idTipoDocumento = int.Parse(ddlTipoDocumento.SelectedValue);
         int numeroDoc = int.Parse(txtNumeroDocumento.Text);
         DateTime fechaNacimento = DateTime.Parse(txtFechaNacimiento.Text);
-        bool genero = false;
+        bool? genero = null;
         if (rbFemenino.Checked) genero = true;
         if (rbMasculino.Checked) genero = false;
         Cliente c = new Cliente();
@@ -109,16 +109,16 @@ public partial class ABMClientes : System.Web.UI.Page
 
         if (ViewState["idCliente"] == null)
         {
-            //NUEVO VEHICULO
+            //NUEVO CLIENTE
             GestorClientes.insertarCliente(c);
         }
         else
         {
-            //ACTUALIZAR VEHICULO
+            //ACTUALIZAR CLIENTE
             c.idCliente = int.Parse(ViewState["idCliente"].ToString());
             GestorClientes.actualizarCliente(c);
         }
-        Inicio();
+        //Inicio();
         Response.Redirect(Request.RawUrl);
     }
 
