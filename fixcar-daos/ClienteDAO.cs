@@ -11,10 +11,13 @@ namespace fixcar_daos
 {
     public class ClienteDAO
     {
+        private static string cadena = ConfigurationManager.ConnectionStrings["trumba"].ConnectionString;
+
         public static List<Cliente> ObtenerTodos()
         {
-            List<Cliente> listaClientes = new List<Cliente>();            
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
+            List<Cliente> listaClientes = new List<Cliente>();
+            //string cadena = ConfigurationManager.ConnectionStrings["trumba"].ConnectionString;
+            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
             SqlConnection con = new SqlConnection(cadena);            
             try
             {
@@ -57,7 +60,7 @@ namespace fixcar_daos
 
         public static void InsertarCliente(Cliente c)
         {
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -89,7 +92,7 @@ namespace fixcar_daos
 
         public static void ActualizarCliente(Cliente c)
         {
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -120,7 +123,7 @@ namespace fixcar_daos
 
         public static void EliminarCliente(Cliente c)
         {
-            string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //    string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -147,9 +150,9 @@ namespace fixcar_daos
         public static Cliente ObtenerPorId(int id)
         {
             Cliente c = new Cliente();
-            string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+          //  string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection cn = new SqlConnection();
-            cn.ConnectionString = cadenaConexion;
+            cn.ConnectionString = cadena;
             cn.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
