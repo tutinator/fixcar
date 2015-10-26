@@ -31,5 +31,10 @@ namespace fixcar_negocio
             ClienteDAO.EliminarCliente(c);
         }
 
+        public static Cliente ObtenerPorId(int id)
+        {
+            return ClienteDAO.ObtenerPorId(id);
+        }
+
     }
 }
