@@ -11,12 +11,11 @@ namespace fixcar_daos
 {
     public class VehiculoDAO
     {
-        private static string cadena = ConfigurationManager.ConnectionStrings["trumba"].ConnectionString;
+        private static string cadena = ConfigurationManager.ConnectionStrings["StringConexionActiva"].ConnectionString;
 
         public static List<Vehiculo> ObtenerTodos()
         {
             List<Vehiculo> list = new List<Vehiculo>();
-            //string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = cadena;
             cn.Open();
@@ -64,7 +63,7 @@ namespace fixcar_daos
         public static Vehiculo ObtenerPorId(int id)
         {
             Vehiculo v = new Vehiculo();
-            //string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = cadena;
             cn.Open();
@@ -111,7 +110,7 @@ namespace fixcar_daos
 
         public static void InsertarVehiculo(Vehiculo v)
         {
-            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -146,7 +145,7 @@ namespace fixcar_daos
 
         public static void ActualizarVehiculo(Vehiculo v)
         {
-            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
             SqlConnection con = new SqlConnection(cadena);
             try
             {
@@ -180,7 +179,7 @@ namespace fixcar_daos
 
         public static void EliminarVehiculo(Vehiculo v)
         {
-            //string cadena = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            
             SqlConnection con = new SqlConnection(cadena);
             try
             {

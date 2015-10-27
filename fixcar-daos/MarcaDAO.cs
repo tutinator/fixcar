@@ -14,12 +14,12 @@ namespace fixcar_daos
 {
     public class MarcaDAO
     {
-        private static string cadena = ConfigurationManager.ConnectionStrings["trumba"].ConnectionString;
+        private static string cadena = ConfigurationManager.ConnectionStrings["StringConexionActiva"].ConnectionString;
 
         public static List<Marca> ObtenerTodas()
         {
             List<Marca> list = new List<Marca>();
-           // string cadenaConexion = "Data Source=TANGO-PC-00\\SQLEXPRESS;Initial Catalog=fixcardb;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+           
             SqlConnection cn = new SqlConnection();
             cn.ConnectionString = cadena;
             cn.Open();
