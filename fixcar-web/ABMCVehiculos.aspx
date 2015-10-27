@@ -1,20 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMCVehiculo.aspx.cs" Inherits="ABMCVehiculo" %>
-
-<%--<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">--%>
+﻿<%@ Page Title="Gestión de Vehículos" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMCVehiculos.aspx.cs" Inherits="ABMCVehiculos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gestión de Vehículos</title>
+    <title></title>
     <script src="bootstrap.js"></script>
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
 </asp:Content>
-<%--</head>
-<body>
-    <form id="form1" runat="server" class="container">--%>
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
@@ -64,12 +57,12 @@
                 <div class="form-group">
                     <label for="txtKm">Kilometraje</label>
                     <asp:TextBox ID="txtKm" runat="server" CssClass="form-control"></asp:TextBox>
-                    <%--<asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="^[0-9]$" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>--%>
+                    <asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="^\d{10}" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
                 </div>
                 <div class="form-group">
                     <label for="txtAno">Modelo</label>
                     <asp:TextBox ID="txtAno" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="reAno" runat="server" ControlToValidate="txtAno" ValidationExpression="^[0-9]{4}$" Display="Dynamic" Text="" ErrorMessage="Año inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="reAno" runat="server" ControlToValidate="txtAno" ValidationExpression="^\d{4}$" Display="Dynamic" Text="" ErrorMessage="Año inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="rfvAno" runat="server" ControlToValidate="txtAno" Text="Ingrese el modelo del vehículo" Display="Dynamic" CssClass="text-danger"></asp:RequiredFieldValidator>
                 </div>
                 <div class="checkbox form-group">
@@ -87,8 +80,5 @@
         
     </div>
 
-    <%--    </form>--%>
 </asp:Content>
 
-<%--</body>
-</html>--%>

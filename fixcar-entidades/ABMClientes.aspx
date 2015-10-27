@@ -1,12 +1,20 @@
-﻿<%@ Page Title="Gestión de Clientes" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMClientes.aspx.cs" Inherits="ABMClientes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMClientes.aspx.cs" Inherits="ABMClientes" %>
 
+<%--<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestión de Clientes</title>
     <script src="bootstrap.js"></script>
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
 </asp:Content>
+<%--</head>
 
+<body>
+    <form id="form1" runat="server" class="container">--%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container">
@@ -81,4 +89,6 @@
         </div>
      </div>
 </asp:Content>
-
+<%--</form>
+</body>
+</html--%>
