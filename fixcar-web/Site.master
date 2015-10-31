@@ -5,6 +5,7 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - FixCar</title>
 
@@ -12,8 +13,14 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
+
+    <%--Estilos comunes a todas las páginas--%>
+     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
+    
+
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
     <form runat="server">
@@ -50,23 +57,28 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/ABMCVehiculo.aspx">ABMC Vehiculos</a></li>
-                        <li><a runat="server" href="~/ABMClientes.aspx">ABMC Clientes</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/">Inicio</a></li>
+
+                        <li><a runat="server" href="~/ABMCVehiculos">Vehiculos</a></li>
+                        <li><a runat="server" href="~/ABMClientes">Clientes</a></li>
+
+                        <li><a runat="server" href="~/Facturar">Facturar</a></li>
+                        <li><a runat="server" href="~/InformeFacturas">Listado de Facturas</a></li>
+
+                        <li><a runat="server" href="~/Contact">Contacto</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <%--<li><a runat="server" href="~/Account/Register">Registrarse</a></li>--%>
+                                <li><a runat="server" href="~/Account/Login">Iniciar Sesión</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %>!</a></li>
+                                <li><a runat="server" href="~/Account/Manage" title="Mi Cuenta">Bienvenido, <%: Context.User.Identity.GetUserName()  %>!</a></li>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Cerrar Sesión" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
                                 </li>
                             </ul>
                         </LoggedInTemplate>
@@ -79,9 +91,17 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                <p>Herrera - Trombotto</p>
+                <p>&copy;FixCar</p>
+                <p><%:DateTime.Now.Year %></p>
             </footer>
         </div>
     </form>
+
+    <%-- Scripts comunes a todas las páginas --%>
+    <script src='<%= ResolveUrl("~/Scripts/jquery-ui-1.11.4.min.js") %>'></script>
+    <script src='<%= ResolveUrl("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js") %>'></script>    
+     <script src='<%= ResolveUrl("https://jquery-ui.googlecode.com/svn-history/r3982/trunk/ui/i18n/jquery.ui.datepicker-es.js") %>'></script> 
+    <script type="text/javascript"> $.datepicker.setDefaults($.datepicker.regional['es']);</script>
 </body>
 </html>

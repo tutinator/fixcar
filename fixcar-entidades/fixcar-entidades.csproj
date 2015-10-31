@@ -41,16 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cliente.cs" />
+    <Compile Include="DetalleFactura.cs" />
+    <Compile Include="DetalleReparacion.cs" />
     <Compile Include="EstadoReparacion.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reparacion.cs" />
+    <Compile Include="Repuesto.cs" />
     <Compile Include="TipoDocumento.cs" />
+    <Compile Include="Trabajo.cs" />
     <Compile Include="Vehiculo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ABMClientes.aspx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

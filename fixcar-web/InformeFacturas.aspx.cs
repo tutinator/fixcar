@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using fixcar_negocio;
 using fixcar_entidades;
+using System.Data;
 
 public partial class InformeFacturas : System.Web.UI.Page
 {
@@ -53,7 +54,8 @@ public partial class InformeFacturas : System.Web.UI.Page
             totalHasta = decimal.Parse(txtTotalHasta.Text);
         }
 
-        gvFacturas.DataSource = GestorFacturas.Obtener(fechaDesde, fechaHasta, idCliente, totalDesde, totalHasta);
+        List<Factura> listaFacturas = GestorFacturas.Obtener(fechaDesde, fechaHasta, idCliente, totalDesde, totalHasta);
+        gvFacturas.DataSource = listaFacturas;
         gvFacturas.DataBind();
     }
 
@@ -70,8 +72,33 @@ public partial class InformeFacturas : System.Web.UI.Page
         ddlCliente.DataTextField = "nombreCompleto";
         ddlCliente.DataValueField = "idCliente";
         ddlCliente.DataBind();
-        ddlCliente.Items.Insert(0, new ListItem("Seleccione el propietario", "0"));
+        ddlCliente.Items.Insert(0, new ListItem("Todos", "0"));
         ddlCliente.SelectedIndex = 0;
 
     }
+
+    protected void btnReset_Click(object sender, EventArgs e)
+    {
+        txtFechaDesde.Text = "";
+        txtFechaHasta.Text = "";
+        ddlCliente.SelectedIndex = 0;
+        txtTotalDesde.Text = "";
+        txtTotalHasta.Text = "";
+        cargarGrilla();
+    }
+
+    protected void btnFiltrar_Click(object sender, EventArgs e)
+    {
+        cargarGrilla();
+    }
+
+
+
+    protected void gvFacturas_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        
+       
+    }
+
 }
+

@@ -1,15 +1,6 @@
 ﻿<%@ Page Title="Gestión de Vehículos" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMCVehiculos.aspx.cs" Inherits="ABMCVehiculos" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
-    <script src="bootstrap.js"></script>
-    <link rel="stylesheet" href="Content/bootstrap.min.css" />
-</asp:Content>
-
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <div class="page-header">
             <h3>Gestión de Vehículos</h3>
