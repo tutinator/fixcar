@@ -45,6 +45,8 @@
     <Compile Include="FacturaDAO.cs" />
     <Compile Include="MarcaDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReparacionDAO.cs" />
+    <Compile Include="RepuestoDAO.cs" />
     <Compile Include="TipoDocumentoDAO.cs" />
     <Compile Include="VehiculoDAO.cs" />
   </ItemGroup>
