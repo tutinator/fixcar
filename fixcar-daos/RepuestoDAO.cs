@@ -24,7 +24,7 @@ namespace fixcar_daos
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
 
-            string consulta = "SELECT idRepuesto, nombreRepuesto, precio, stock FROM Repuestos";
+            string consulta = "SELECT idRepuesto, nombreRepuesto, precio, stock FROM Repuestos WHERE stock>0";
             cmd.CommandText = consulta;
 
             SqlDataReader dr = cmd.ExecuteReader();
@@ -44,6 +44,37 @@ namespace fixcar_daos
             return list;
         }
 
+
+
+        public static Repuesto ObtenerPorId(int idRepuesto)
+        {
+            Repuesto r = new Repuesto();
+
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = cadena;
+            cn.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = cn;
+
+            string consulta = "SELECT idRepuesto, nombreRepuesto, precio, stock FROM Repuestos WHERE idRepuesto = @idRepuesto";
+            cmd.CommandText = consulta;
+            cmd.Parameters.AddWithValue("@idRepuesto", idRepuesto);
+
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                r.idRepuesto = (int)dr["idRepuesto"];
+                r.nombreRepuesto = dr["nombreRepuesto"].ToString();
+                r.precio = (decimal)dr["precio"];
+                r.stock = (int)dr["stock"];                
+            }
+
+            dr.Close();
+            cn.Close();
+            return r;
+
+        }
     }
 }
 

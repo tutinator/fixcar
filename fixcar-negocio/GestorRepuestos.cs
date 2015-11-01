@@ -14,5 +14,9 @@ namespace fixcar_negocio
         {
             return RepuestoDAO.ObtenerTodos();
         }
+        public static Repuesto ObtenerPorId(int idRepuesto)
+        {
+            return RepuestoDAO.ObtenerPorId(idRepuesto);
+        }
     }
 }

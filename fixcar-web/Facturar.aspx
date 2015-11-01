@@ -50,60 +50,55 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-
                     <div class="col-md-8">
-                        
-                            
                         <div class="row">
-                            
-                                <asp:Label runat="server" AssociatedControlID="ddlRepuestos" CssClass="control-label col-md-2">Repuesto:</asp:Label>
-
-                                <div class="form-group col-md-3">
-                                    <asp:DropDownList ID="ddlRepuestos" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
-                                </div>
-                            
-                            
-                                <asp:Label runat="server" AssociatedControlID="txtCantidadRepuestos" CssClass="control-label col-md-2">Cantidad:</asp:Label>
-
-                                <div class="form-group col-md-3">
-                                    <asp:TextBox ID="txtCantidadRepuestos" runat="server" CssClass="form-control input-sm"></asp:TextBox>
-                                </div>
-                            
+                            <div class="col-md-5">
+                                <asp:DropDownList ID="ddlRepuestos" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
+                            </div>
+                            <div class="input-group input-group-sm col-md-3" id="cantidad">
+                                <span class="input-group-addon">Cantidad:</span>
+                                <asp:TextBox ID="txtCantidadRepuestos" runat="server" CssClass="form-control input-sm"></asp:TextBox>
+                            </div>
                             <div class="col-md-2">
                                 <div class="btn-group" role="group">
-                                    <asp:Button ID="btnAgregarRepuestos" runat="server" Text="Agregar" CssClass="btn btn-default btn-sm" CausesValidation="false" />
+                                    <asp:Button ID="btnAgregarRepuestos" runat="server" Text="Agregar" CssClass="btn btn-default btn-sm" CausesValidation="false" OnClick="btnAgregarRepuestos_Click" />
                                 </div>
                             </div>
                         </div>
-                                
-                            
-                        <div class="row">
+                        <br />
+                       <div class="row">
                             <div class="col-md-12">
-                                <asp:GridView ID="gvRepuestos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True">
+                                <asp:GridView ID="gvDetallesFactura" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvDetallesFactura_SelectedIndexChanged">
                                     <Columns>
-                                        <asp:BoundField DataField="idFactura" HeaderText="ID" Visible="false" />
-                                        <asp:BoundField DataField="numeroFactura" HeaderText="Numero" SortExpression="numeroFactura" />
-                                        <asp:BoundField DataField="fechaFactura" HeaderText="Fecha" SortExpression="fechaFactura" DataFormatString="{0:d}" />
-                                        <asp:BoundField DataField="reparacion.vehiculo.dominio" HeaderText="Dominio" SortExpression="vehiculo.dominio" />
-                                        <asp:BoundField DataField="reparacion.vehiculo.cliente.nombreCompleto" HeaderText="Cliente" SortExpression="vehiculo.cliente.nombreCompleto" />
-                                        <asp:BoundField DataField="reparacion.vehiculo.cliente.numeroDocumento" HeaderText="Documento" SortExpression="vehiculo.cliente.numeroDocumento" />
-                                        <asp:BoundField DataField="reparacion.totalMO" HeaderText="Costo MO" SortExpression="reparacion.totalMO" DataFormatString="{0:C}" />
-                                        <asp:BoundField DataField="total" HeaderText="Total" SortExpression="total" DataFormatString="{0:C}" />
+                                        <asp:BoundField DataField="repuesto.idRepuesto" HeaderText="ID" Visible="false" />
+                                        <asp:BoundField DataField="repuesto.nombreRepuesto" HeaderText="Repuesto"/>
+                                        <asp:BoundField DataField="repuesto.stock" HeaderText="Stock"/>
+                                        <asp:BoundField DataField="repuesto.precio" HeaderText="Precio" DataFormatString="{0:C}" />
+                                        <asp:BoundField DataField="cantidad" HeaderText="Cantidad"/>                                        
+                                        <asp:BoundField DataField="subtotal" HeaderText="Subtotal" DataFormatString="{0:C}" />
+                                        <asp:CommandField SelectText="Quitar" ShowSelectButton="True" />                                      
                                     </Columns>
                                 </asp:GridView>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-4">
-                        <%-- datos factura --%>
-                        <p>Datos Factura</p>
-
+                        <div class="form-group">
+                            <asp:Label runat="server" AssociatedControlID="txtCantidadDetalles" CssClass="control-label">Cantidad Repuestos:</asp:Label>
+                            <asp:TextBox ID="txtCantidadDetalles" runat="server" CssClass="form-control input-sm" Enabled="false"></asp:TextBox>
+                        </div>
+                        <div class="form-group">
+                            <asp:Label runat="server" AssociatedControlID="txtSubTotalDetalles" CssClass="control-label">Subtotal Repuestos:</asp:Label>
+                            <asp:TextBox ID="txtSubTotalDetalles" runat="server" CssClass="form-control input-sm" Enabled="false"></asp:TextBox>
+                        </div>
+                        <div class="form-group">
+                            <asp:Label runat="server" AssociatedControlID="txtTotalFactura" CssClass="control-label">Total Factura:</asp:Label>
+                            <asp:TextBox ID="txtTotalFactura" runat="server" CssClass="form-control input-sm" Enabled="false"></asp:TextBox>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="panel panel-default">
             <div class="panel-heading">
                 3. Generar Factura
