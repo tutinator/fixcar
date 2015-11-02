@@ -15,7 +15,8 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
 
     <%--Estilos comunes a todas las páginas--%>
-     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <%--<link href="~/Content/themes/darkly/bootstrap.min.css" rel="stylesheet" type="text/css" />--%>
+         <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" />
@@ -46,7 +47,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,14 +55,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">FixCar</a>
+                    <a class="navbar-brand" runat="server" href="~/"><img src="/Content/themes/base/images/logo.png" alt="" height="20" width="50"/></a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Inicio</a></li>
 
                         <li><a runat="server" href="~/ABMCVehiculos">Vehiculos</a></li>
-                        <li><a runat="server" href="~/ABMClientes">Clientes</a></li>
+                        <%--<li><a runat="server" href="~/ABMClientes">Clientes</a></li>--%>
 
                         <li><a runat="server" href="~/Facturar">Facturar</a></li>
                         <li><a runat="server" href="~/InformeFacturas">Listado de Facturas</a></li>

@@ -8,6 +8,7 @@ using fixcar_negocio;
 using fixcar_entidades;
 using System.Data;
 
+
 public partial class InformeFacturas : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -57,6 +58,11 @@ public partial class InformeFacturas : System.Web.UI.Page
         List<Factura> listaFacturas = GestorFacturas.Obtener(fechaDesde, fechaHasta, idCliente, totalDesde, totalHasta);
         gvFacturas.DataSource = listaFacturas;
         gvFacturas.DataBind();
+
+        
+
+        DataTable dt = gvFacturas.DataSource as DataTable;
+        ViewState["dt"] = dt;
     }
 
     private void cargarDDLS()
@@ -96,8 +102,29 @@ public partial class InformeFacturas : System.Web.UI.Page
 
     protected void gvFacturas_Sorting(object sender, GridViewSortEventArgs e)
     {
-        
-       
+        if (ViewState["dt"] != null)
+        {
+            DataTable dt = (DataTable)ViewState["dt"];
+            dt.DefaultView.Sort = e.SortExpression + " " + cambiarSortDirection();
+            gvFacturas.DataSource = dt;
+            gvFacturas.DataBind();
+        }
+
+    }
+
+    private string sortDirection = "ASC";
+    protected string cambiarSortDirection()
+    {
+        if (sortDirection == "ASC")
+        {
+            sortDirection = "DESC";
+            return sortDirection;
+        }
+        else
+        {
+            sortDirection = "ASC";
+            return sortDirection;
+        }
     }
 
 

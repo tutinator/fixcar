@@ -77,6 +77,9 @@ public partial class ABMCVehiculos : System.Web.UI.Page
 
         btnEliminar.Enabled = true;
         txtDominio.Enabled = false;
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
     }
 
     protected void btnGuardar_Click(object sender, EventArgs e)
@@ -109,23 +112,37 @@ public partial class ABMCVehiculos : System.Web.UI.Page
 
         if (ViewState["idVehiculo"] == null)
         {
-            //NUEVO VEHICULO     
-            GestorVehiculos.InsertarVehiculo(v);
+            //NUEVO VEHICULO 
+            try
+            {
+                GestorVehiculos.InsertarVehiculo(v);
+                alertaExito.Visible = true;
+            }
+            catch (Exception)
+            {
+                alertaError.Visible = true;
+            } 
+            
         }
         else
         {
             //ACTUALIZAR VEHICULO
             v.idVehiculo = int.Parse(ViewState["idVehiculo"].ToString());
             GestorVehiculos.ActualizarVehiculo(v);
+            alertaExito.Visible = true;
         }
 
-        Response.Redirect(Request.RawUrl);
+        Inicio();
+        Nuevo();
     }
 
     protected void btnNuevo_Click(object sender, EventArgs e)
     {
         
         Nuevo();
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
     }
 
     protected void Nuevo()
@@ -134,6 +151,7 @@ public partial class ABMCVehiculos : System.Web.UI.Page
         ddlCliente.SelectedIndex = 0;
         ddlMarca.ClearSelection();
         ddlMarca.SelectedIndex = 0;
+        cbPintura.Checked = false;
 
         ViewState["idVehiculo"] = null;
         txtIdVehiculo.Text = string.Empty;
@@ -152,8 +170,19 @@ public partial class ABMCVehiculos : System.Web.UI.Page
         {
             Vehiculo v = new Vehiculo();            
             v.idVehiculo = int.Parse(ViewState["idVehiculo"].ToString());
-            GestorVehiculos.EliminarVehiculo(v);
-            Response.Redirect(Request.RawUrl);
+            try
+            {
+                GestorVehiculos.EliminarVehiculo(v);
+                alertaExito.Visible = true;
+            }
+            catch (Exception)
+            {
+
+                alertaErrorEliminacion.Visible = true;
+            }
+
+            Inicio();
+            Nuevo();
         }
         
     }
@@ -162,5 +191,8 @@ public partial class ABMCVehiculos : System.Web.UI.Page
     {
         gvVehiculos.PageIndex = e.NewPageIndex;
         CargarGrilla();
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
     }
 }

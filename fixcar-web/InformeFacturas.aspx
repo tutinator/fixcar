@@ -3,11 +3,11 @@
 <asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <div class="page-header">
-            <h3>Historial de Facturación</h3>
+            <h3>Historial de Facturación <small>Reporte de facturas emitidas por FixCar</small></h3>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-info">
             <div id="pheading1" class="panel-heading">
-                Filtros
+                <strong>Filtros</strong>
             </div>
             <div id="pbody1" class="panel-body">
                 <div class="row">

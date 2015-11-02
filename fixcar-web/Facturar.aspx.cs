@@ -145,6 +145,7 @@ public partial class Facturar : System.Web.UI.Page
         btnAgregarRepuestos.Enabled = true;
         btnGuardar.Enabled = true;
         alertaExito.Visible = false;
+        alertaStockInsuficiente.Visible = false;
         alertaError.Visible = false;
         //ViewState["reparacion"] = r;
     }
@@ -174,6 +175,11 @@ public partial class Facturar : System.Web.UI.Page
                         item.subtotal = item.cantidad * item.repuesto.precio;
                         break;
                     }
+                    else
+                    {
+                        alertaStockInsuficiente.Visible = true;
+                        break;
+                    }
                 }
                         
             }
@@ -187,16 +193,16 @@ public partial class Facturar : System.Web.UI.Page
                     df.repuesto = r;
                     df.subtotal = cantidad * r.precio;
                     listaDetalles.Add(df);
-                    alertaStockInsuficiente.Visible = false;
-                    
+                    alertaStockInsuficiente.Visible = false;              
 
-                }               
-                
+                }
+                else
+                {
+                    alertaStockInsuficiente.Visible = true;
+                }
+
             }
-            else
-            {
-                alertaStockInsuficiente.Visible = true;
-            }
+            
             actualizarDatosFactura();
             CargarGrillaRepuestos();
             ResetP2();
@@ -211,6 +217,7 @@ public partial class Facturar : System.Web.UI.Page
         listaDetalles.RemoveAt(numero);
         actualizarDatosFactura();
         CargarGrillaRepuestos();
+        alertaStockInsuficiente.Visible = false;
     }
 
     protected void btnCancelar_Click(object sender, EventArgs e)

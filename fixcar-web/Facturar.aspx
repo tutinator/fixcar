@@ -3,7 +3,7 @@
 <asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <div class="page-header">
-            <h3>Facturar Reparación y Repuestos</h3>
+            <h3>Facturar Reparación y Repuestos <small>Registrar la facturación de una reparación realizada a un vehículo y de los repuestos utilizados.</small> </h3>
         </div>
         <div id="alertaExito" runat="server" class="alert alert-success" role="alert" visible="false">
                                     <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Factura registrada con éxito</div>
@@ -12,7 +12,7 @@
                                     <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Error en la facturación. Cambios cancelados.</div>
 
 
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 1. Elegir Reparación a facturar
             </div>
@@ -53,7 +53,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 2. Agregar Repuestos a la factura
             </div>
@@ -63,14 +63,15 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <asp:DropDownList ID="ddlRepuestos" runat="server" CssClass="form-control input-sm"></asp:DropDownList>
+                                <asp:RegularExpressionValidator ID="reCantRep" ValidationGroup="cantidad" runat="server" ControlToValidate="txtCantidadRepuestos" ValidationExpression="\d+" Display="Dynamic" Text="" ErrorMessage="Cantidad inválida. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
                             </div>
                             <div class="input-group input-group-sm col-md-3" id="cantidad">
                                 <span class="input-group-addon">Cantidad:</span>
-                                <asp:TextBox ID="txtCantidadRepuestos" runat="server" CssClass="form-control input-sm"></asp:TextBox>
+                                <asp:TextBox ID="txtCantidadRepuestos" ValidationGroup="cantidad" runat="server" CssClass="form-control input-sm"></asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <div class="btn-group" role="group">
-                                    <asp:Button ID="btnAgregarRepuestos" runat="server" Text="Agregar" CssClass="btn btn-default btn-sm" CausesValidation="false" OnClick="btnAgregarRepuestos_Click" />
+                                    <asp:Button ID="btnAgregarRepuestos" runat="server" ValidationGroup="cantidad" Text="Agregar" CssClass="btn btn-default btn-sm" OnClick="btnAgregarRepuestos_Click" />
                                 </div>
                             </div>
                         </div>
@@ -112,9 +113,9 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-success">
             <div class="panel-heading">
-                3. Generar Factura
+                <strong>3. Generar Factura</strong>
             </div>
             <div class="panel-body">
                 <div class="row">
