@@ -124,6 +124,36 @@ public partial class ABMClientes : System.Web.UI.Page
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
+        bool huboExcepcion = false;
+        string mensaje = "";
+        if (!(ViewState["idCliente"] == null))
+        {
+            Cliente c = new Cliente();
+            c.idCliente= int.Parse(ViewState["idCliente"].ToString());
+            try
+            {
 
+                GestorClientes.eliminarCliente(c);
+            }
+            catch (ApplicationException ex)
+            {
+                huboExcepcion = true;
+                mensaje = ex.Message;
+
+                //lbl_error.Text = ex.Message;
+                //lbl_error.ForeColor = System.Drawing.Color.Red;
+            }
+            finally {
+                if (huboExcepcion)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensaje + "');", true);
+                }
+                Inicio();
+                //Response.Redirect(Request.RawUrl);
+                
+            }
+            
+                
+        }
     }
 }

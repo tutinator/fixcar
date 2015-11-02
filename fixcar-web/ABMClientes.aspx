@@ -2,9 +2,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="bootstrap.js"></script>
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <script type="text/JavaScript" runat ="server">
+        //alert('');
+
+    </script>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -28,7 +34,7 @@
                         <asp:CommandField SelectText="Editar" ShowSelectButton="True" />
                     </Columns>
                 </asp:GridView>
-
+            
             </div>
 
             <div class="col-md-4">
@@ -77,8 +83,26 @@
                     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
 
                 </div>
+                                
             </div>
         </div>
      </div>
+    <script>
+        $(function () {
+            $("[id$=txtFechaNacimiento]").datepicker({
+                defaultDate: "-1m",
+                changeMonth: true,
+                changeYear: true,
+                numberOfMonths: 3,
+                maxDate: "+1D",
+                dateFormat: 'dd/mm/yy',
+                onClose: function (selectedDate) {
+                    $("[id$=txtFechaNacimiento]").datepicker("option", "minDate", selectedDate);
+                }
+            });
+
+        });
+    </script>
+       
 </asp:Content>
 
