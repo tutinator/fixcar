@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace fixcar_entidades
 {
+    [Serializable()]
     public class Cliente
     {
         public int idCliente { get; set; }

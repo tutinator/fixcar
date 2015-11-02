@@ -135,7 +135,7 @@ namespace fixcar_daos
             }
             catch (SqlException e)
             {
-                throw new ApplicationException("Error al insertar cliente ");
+                throw new ApplicationException("Error al insertar vehículo: Dominio ya registrado ");
             }
             finally
             {

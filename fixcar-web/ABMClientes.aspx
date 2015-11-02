@@ -1,13 +1,6 @@
 ﻿<%@ Page Title="Gestión de Clientes" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMClientes.aspx.cs" Inherits="ABMClientes" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="bootstrap.js"></script>
-    <link rel="stylesheet" href="Content/bootstrap.min.css" />
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container">
         <div class="page-header">
@@ -16,7 +9,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <asp:GridView ID="gvClientes" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" DataKeyNames="idCliente">
+                <asp:GridView ID="gvClientes" runat="server" PageSize="12" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" DataKeyNames="idCliente" OnPageIndexChanged="gvClientes_PageIndexChanged" OnPageIndexChanging="gvClientes_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="idCliente" Visible="false" />
                         <asp:BoundField DataField="nombre" HeaderText="Nombre" />

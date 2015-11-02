@@ -1,38 +1,47 @@
 ﻿<%@ Page Title="Gestión de Vehículos" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.master" CodeFile="ABMCVehiculos.aspx.cs" Inherits="ABMCVehiculos" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
-    <script src="bootstrap.js"></script>
-    <link rel="stylesheet" href="Content/bootstrap.min.css" />
-</asp:Content>
-
-
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Body" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container">
         <div class="page-header">
-            <h3>Gestión de Vehículos</h3>
+            <h3>Gestión de Vehículos <small>Alta, baja, modificación o consulta de un vehículo y sus datos.</small> </h3>
         </div>
+        <div id="alertaExito" runat="server" class="alert alert-success" role="alert" visible="false">
+                                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Operación realizada con éxito</div>
+        
+        <div id="alertaError" runat="server" class="alert alert-danger" role="alert" visible ="false">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Error al insertar vehículo: Dominio ya registrado</div>
+
+        <div id="alertaErrorEliminacion" runat="server" class="alert alert-danger" role="alert" visible ="false">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Error al eliminar vehículo: Existen reparaciones/facturaciones pendientes</div>
 
         <div class="row">
             <div class="col-md-8">
-                <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged" DataKeyNames="idVehiculo">
-                    <Columns>
-                        <asp:BoundField DataField="idVehiculo" HeaderText="ID" Visible="false" />
-                        <asp:BoundField DataField="dominio" HeaderText="Dominio" />
-                        <asp:BoundField DataField="marca.nombreMarca" HeaderText="Marca" />
-                        <asp:BoundField DataField="cliente.nombreCompleto" HeaderText="Propietario" />
-                        <asp:BoundField DataField="ano" HeaderText="Modelo" />
-                        <asp:BoundField DataField="km" HeaderText="Kilometraje" />
-                        <asp:CheckBoxField DataField="pinturaDanada" HeaderText="Pintura Dañada" />
-                        <asp:CommandField SelectText="Editar" ShowSelectButton="True" />
-                    </Columns>
-                </asp:GridView>
-
+                 <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Vehículos Registrados
+                </div>
+                <div class="panel-body">
+                    <asp:GridView ID="gvVehiculos" runat="server" PageSize="12" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged" DataKeyNames="idVehiculo" OnPageIndexChanging="gvVehiculos_PageIndexChanging">
+                        <Columns>
+                            <asp:BoundField DataField="idVehiculo" HeaderText="ID" Visible="false" />
+                            <asp:BoundField DataField="dominio" HeaderText="Dominio" />
+                            <asp:BoundField DataField="marca.nombreMarca" HeaderText="Marca" />
+                            <asp:BoundField DataField="cliente.nombreCompleto" HeaderText="Propietario" />
+                            <asp:BoundField DataField="ano" HeaderText="Modelo" />
+                            <asp:BoundField DataField="km" HeaderText="Kilometraje" />
+                            <asp:CheckBoxField DataField="pinturaDanada" HeaderText="Pintura Dañada" />
+                            <asp:CommandField SelectText="Editar" ShowSelectButton="True" />
+                        </Columns>
+                    </asp:GridView>
+                    </div>
+                </div>
             </div>
-
             <div class="col-md-4">
+                <div class="panel panel-info">
+                <div class="panel-heading">
+                   <strong>Datos</strong> 
+                </div>
+                <div class="panel-body">
 
                 <asp:TextBox ID="txtIdVehiculo" runat="server" Visible="false"></asp:TextBox>
 
@@ -57,7 +66,7 @@
                 <div class="form-group">
                     <label for="txtKm">Kilometraje</label>
                     <asp:TextBox ID="txtKm" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="^\d{10}" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="\d+" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
                 </div>
                 <div class="form-group">
                     <label for="txtAno">Modelo</label>
@@ -74,7 +83,8 @@
                     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
 
                 </div>
-
+</div>
+                    </div>
             </div>
         </div>
         

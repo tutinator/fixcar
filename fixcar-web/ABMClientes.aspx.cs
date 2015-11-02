@@ -1,11 +1,11 @@
 ﻿using System;
+using fixcar_negocio;
+using fixcar_entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using fixcar_negocio;
-using fixcar_entidades;
 
 public partial class ABMClientes : System.Web.UI.Page
 {
@@ -123,6 +123,18 @@ public partial class ABMClientes : System.Web.UI.Page
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    
+    protected void gvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvClientes.PageIndex = e.NewPageIndex;
+        cargarGrilla();
+    }
+
+    protected void gvClientes_PageIndexChanged(object sender, EventArgs e)
     {
 
     }
