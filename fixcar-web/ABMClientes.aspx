@@ -9,7 +9,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <asp:GridView ID="gvClientes" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" DataKeyNames="idCliente">
+                <asp:GridView ID="gvClientes" runat="server" PageSize="12" CssClass="table table-hover table-bordered table-condensed table-striped" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvClientes_SelectedIndexChanged" DataKeyNames="idCliente" OnPageIndexChanged="gvClientes_PageIndexChanged" OnPageIndexChanging="gvClientes_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="idCliente" Visible="false" />
                         <asp:BoundField DataField="nombre" HeaderText="Nombre" />

@@ -85,7 +85,7 @@
             </div>
                     <div class="panel-body">
 
-                        <asp:GridView ID="gvFacturas" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="true" OnSorting="gvFacturas_Sorting">
+                        <asp:GridView ID="gvFacturas" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="true" OnSorting="gvFacturas_Sorting" OnPageIndexChanging="gvFacturas_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField DataField="idFactura" HeaderText="ID" Visible="false" />
                                 <asp:BoundField DataField="numeroFactura" HeaderText="Numero" SortExpression="numeroFactura" />
@@ -127,8 +127,6 @@
                 }
             });
         });
-
-
 
     </script>
 </asp:Content>

@@ -157,4 +157,10 @@ public partial class ABMCVehiculos : System.Web.UI.Page
         }
         
     }
+
+    protected void gvVehiculos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvVehiculos.PageIndex = e.NewPageIndex;
+        CargarGrilla();
+    }
 }

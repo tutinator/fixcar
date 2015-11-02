@@ -21,8 +21,21 @@ public partial class Facturar : System.Web.UI.Page
 
     private void Inicio()
     {
+       
+        btnAgregarRepuestos.Enabled = false;
+        btnGuardar.Enabled = false;
+        ViewState["totalFactura"] = 0;
+        ViewState["detallesFactura"] = new List<DetalleFactura>();
+        ViewState["idReparacion"] = null;
         CargarDDLS();
         CargarGrillas();
+        txtCantidadDetalles.Text = string.Empty;
+        txtCantidadRepuestos.Text = string.Empty;
+        txtCliente.Text = string.Empty;
+        txtDominio.Text = string.Empty;
+        txtMO.Text = string.Empty;
+        txtSubTotalDetalles.Text = string.Empty;
+        txtTotalFactura.Text = string.Empty;
         //btnEliminar.Enabled = false;
         //ViewState["idCliente"] = null;
         //txtIdCliente.Text = string.Empty;
@@ -60,6 +73,8 @@ public partial class Facturar : System.Web.UI.Page
         List<Reparacion> listaReparaciones = GestorReparaciones.ObtenerTodas();
         gvReparaciones.DataSource = listaReparaciones;
         gvReparaciones.DataBind();
+        if (listaReparaciones.Count == 0) alertaNoReparaciones.Visible = true;
+        else alertaNoReparaciones.Visible = false;
     }
 
     private void CargarGrillaRepuestos()
@@ -68,8 +83,9 @@ public partial class Facturar : System.Web.UI.Page
         List<DetalleFactura> listaDetalles = (List<DetalleFactura>)ViewState["detallesFactura"];
         gvDetallesFactura.DataSource = listaDetalles;
         gvDetallesFactura.DataBind();
-
-        actualizarDatosFactura();
+        if (listaDetalles.Count == 0) alertaNoRepuestos.Visible = true;
+        else alertaNoRepuestos.Visible = false;
+        //actualizarDatosFactura();
     }
 
     private void actualizarDatosFactura()
@@ -80,9 +96,13 @@ public partial class Facturar : System.Web.UI.Page
             listaDetalles = (List<DetalleFactura>)ViewState["detallesFactura"];
             if (listaDetalles.Count == 0)
             {
+                
                 txtCantidadDetalles.Text = "0";
                 txtSubTotalDetalles.Text = "$ 0.0";
                 txtTotalFactura.Text = txtMO.Text;
+                decimal totalfactura = decimal.Parse(txtMO.Text.Substring(2));
+                txtTotalFactura.Text = "$ " + totalfactura.ToString();
+                ViewState["totalFactura"] = totalfactura;
             }
             else
             {
@@ -95,7 +115,17 @@ public partial class Facturar : System.Web.UI.Page
                 txtSubTotalDetalles.Text = "$ " + subtotaldetalles.ToString();
                 decimal totalfactura = decimal.Parse(txtMO.Text.Substring(2)) + subtotaldetalles;
                 txtTotalFactura.Text = "$ " + totalfactura.ToString();
+                ViewState["totalFactura"] = totalfactura;
             }
+        }
+        else
+        {
+            txtCantidadDetalles.Text = "0";
+            txtSubTotalDetalles.Text = "$ 0.0";
+            txtTotalFactura.Text = txtMO.Text;
+            decimal totalfactura = decimal.Parse(txtMO.Text.Substring(2));
+            txtTotalFactura.Text = "$ " + totalfactura.ToString();
+            ViewState["totalFactura"] = totalfactura;
         }
 
     }
@@ -112,6 +142,10 @@ public partial class Facturar : System.Web.UI.Page
         txtCliente.Text = r.vehiculo.cliente.nombreCompleto;
         txtMO.Text = "$ " + r.totalMO.ToString();
         actualizarDatosFactura();
+        btnAgregarRepuestos.Enabled = true;
+        btnGuardar.Enabled = true;
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
         //ViewState["reparacion"] = r;
     }
 
@@ -153,13 +187,15 @@ public partial class Facturar : System.Web.UI.Page
                     df.repuesto = r;
                     df.subtotal = cantidad * r.precio;
                     listaDetalles.Add(df);
+                    alertaStockInsuficiente.Visible = false;
                     
+
                 }               
                 
             }
             else
             {
-                //STOCK INSUFICIENTE
+                alertaStockInsuficiente.Visible = true;
             }
             actualizarDatosFactura();
             CargarGrillaRepuestos();
@@ -173,7 +209,50 @@ public partial class Facturar : System.Web.UI.Page
         List<DetalleFactura> listaDetalles = (List<DetalleFactura>)ViewState["detallesFactura"];
         int numero = gvDetallesFactura.SelectedIndex;
         listaDetalles.RemoveAt(numero);
+        actualizarDatosFactura();
         CargarGrillaRepuestos();
+    }
 
+    protected void btnCancelar_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(Request.RawUrl);
+    }
+
+    protected void btnGuardar_Click(object sender, EventArgs e)
+    {
+        Factura f = new Factura();
+        Reparacion r = new Reparacion();
+
+        f.numeroFactura = GestorFacturas.ObtenerNumeroMaximo() + 1;
+        f.fechaFactura = DateTime.Now;
+
+        int idReparacion = (int)ViewState["idReparacion"];
+
+        //if (ViewState["reparacion"] != null) r = (Reparacion)ViewState["reparacion"];
+        r.idReparacion = idReparacion;
+        f.reparacion = r;
+
+        f.total = (decimal)ViewState["totalFactura"];
+
+        List<DetalleFactura> listaDetalles;
+        if (ViewState["detallesFactura"] == null) ViewState["detallesFactura"] = new List<DetalleFactura>();
+        listaDetalles = (List<DetalleFactura>)ViewState["detallesFactura"];
+
+        GestorFacturas.InsertarFactura(f, listaDetalles);
+        alertaExito.Visible = true;
+        Inicio();
+
+    }
+
+    protected void gvReparaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvReparaciones.PageIndex = e.NewPageIndex;
+        CargarGrillaReparaciones();
+    }
+
+    protected void gvDetallesFactura_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvDetallesFactura.PageIndex = e.NewPageIndex;
+        CargarGrillaRepuestos();
     }
 }

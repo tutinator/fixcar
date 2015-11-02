@@ -21,18 +21,14 @@ namespace fixcar_negocio
         //    //return FacturaDAO.ObtenerPorId(id);
         //}
 
-        public static void InsertarFactura(Factura f)
+        public static void InsertarFactura(Factura f, List<DetalleFactura> listaDetalles)
         {
-            //FacturaDAO.InsertarFactura(f);
-        }
-        public static void ActualizarFactura(Factura f)
-        {
-            //FacturaDAO.ActualizarFactura(f);
+            FacturaDAO.InsertarFactura(f, listaDetalles);
         }
 
-        public static void EliminarFactura(Factura f)
+        public static int ObtenerNumeroMaximo()
         {
-            //FacturaDAO.EliminarFactura(f);
+            return FacturaDAO.ObtenerMaximoNumero();
         }
     }
 }

@@ -115,6 +115,31 @@ namespace fixcar_daos
             return r;
         }
 
+        public static void Facturar(int idReparacion, SqlConnection con, SqlTransaction tran)
+        {
+
+            try
+            {
+                
+                string sql = "UPDATE Reparaciones SET idEstado = @idEstado WHERE idReparacion = @idReparacion";
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = con;
+                cmd.Transaction = tran;
+
+                cmd.Parameters.AddWithValue("@idReparacion", idReparacion);
+                cmd.Parameters.AddWithValue("@idEstado", 4);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                throw new ApplicationException("Error al actualizar reparacion: " + e.Message);
+            }
+            
+        }
+
     }
     }
 

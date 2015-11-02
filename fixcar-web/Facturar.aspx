@@ -5,6 +5,13 @@
         <div class="page-header">
             <h3>Facturar Reparación y Repuestos</h3>
         </div>
+        <div id="alertaExito" runat="server" class="alert alert-success" role="alert" visible="false">
+                                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Factura registrada con éxito</div>
+        
+        <div id="alertaError" runat="server" class="alert alert-danger" role="alert" visible ="false">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Error en la facturación. Cambios cancelados.</div>
+
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 1. Elegir Reparación a facturar
@@ -13,7 +20,9 @@
                 <div class="row">
 
                     <div class="col-md-8">
-                        <asp:GridView ID="gvReparaciones" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvReparaciones_SelectedIndexChanged" DataKeyNames="idReparacion">
+                        <div id="alertaNoReparaciones" runat="server" class="alert alert-warning" role="alert" visible="false">
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> No hay reparaciones terminadas para facturar</div>
+                        <asp:GridView ID="gvReparaciones" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvReparaciones_SelectedIndexChanged" DataKeyNames="idReparacion" OnPageIndexChanging="gvReparaciones_PageIndexChanging">
                             <Columns>
                                 <asp:BoundField DataField="idReparacion" HeaderText="ID" Visible="false" />
                                 <asp:BoundField DataField="vehiculo.dominio" HeaderText="Dominio" SortExpression="vehiculo.dominio" />
@@ -68,7 +77,11 @@
                         <br />
                        <div class="row">
                             <div class="col-md-12">
-                                <asp:GridView ID="gvDetallesFactura" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvDetallesFactura_SelectedIndexChanged">
+                                <div id="alertaNoRepuestos" runat="server" class="alert alert-warning" role="alert" visible="false">
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> No hay repuestos a facturar</div>
+                                <div id="alertaStockInsuficiente" runat="server" class="alert alert-danger" role="alert" visible ="false">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Stock insuficiente de ese repuesto</div>
+                                <asp:GridView ID="gvDetallesFactura" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvDetallesFactura_SelectedIndexChanged" OnPageIndexChanging="gvDetallesFactura_PageIndexChanging">
                                     <Columns>
                                         <asp:BoundField DataField="repuesto.idRepuesto" HeaderText="ID" Visible="false" />
                                         <asp:BoundField DataField="repuesto.nombreRepuesto" HeaderText="Repuesto"/>
@@ -107,8 +120,8 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="btn-group" role="group">
-                            <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Facturar" runat="server" />
-                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-default" CausesValidation="false" />
+                            <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Facturar" runat="server" OnClick="btnGuardar_Click" />
+                            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-default" CausesValidation="false" OnClick="btnCancelar_Click" />
                         </div>
                     </div>
                 </div>

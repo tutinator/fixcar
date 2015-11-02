@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <asp:GridView ID="gvVehiculos" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged" DataKeyNames="idVehiculo">
+                <asp:GridView ID="gvVehiculos" runat="server" PageSize="12" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="True" OnSelectedIndexChanged="gvVehiculos_SelectedIndexChanged" DataKeyNames="idVehiculo" OnPageIndexChanging="gvVehiculos_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="idVehiculo" HeaderText="ID" Visible="false" />
                         <asp:BoundField DataField="dominio" HeaderText="Dominio" />
@@ -48,7 +48,7 @@
                 <div class="form-group">
                     <label for="txtKm">Kilometraje</label>
                     <asp:TextBox ID="txtKm" runat="server" CssClass="form-control"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="^\d{10}" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="reKm" runat="server" ControlToValidate="txtKm" ValidationExpression="\d+" Display="Dynamic" Text="" ErrorMessage="Kilometraje inválido. Ingrese sólo números." CssClass="text-danger"></asp:RegularExpressionValidator>
                 </div>
                 <div class="form-group">
                     <label for="txtAno">Modelo</label>

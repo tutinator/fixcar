@@ -100,5 +100,18 @@ public partial class InformeFacturas : System.Web.UI.Page
        
     }
 
+
+    protected void gvFacturas_PageIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    
+
+    protected void gvFacturas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvFacturas.PageIndex = e.NewPageIndex;
+        cargarGrilla();
+    }
 }
 

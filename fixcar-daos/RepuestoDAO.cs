@@ -24,7 +24,7 @@ namespace fixcar_daos
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cn;
 
-            string consulta = "SELECT idRepuesto, nombreRepuesto, precio, stock FROM Repuestos WHERE stock>0";
+            string consulta = "SELECT idRepuesto, nombreRepuesto, precio, stock FROM Repuestos WHERE stock > 0 ORDER BY nombreRepuesto ASC";
             cmd.CommandText = consulta;
 
             SqlDataReader dr = cmd.ExecuteReader();
