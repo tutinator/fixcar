@@ -28,7 +28,12 @@ namespace fixcar_negocio
 
         public static void eliminarCliente(Cliente c)
         {
-            ClienteDAO.EliminarCliente(c);
+            try {
+                ClienteDAO.EliminarCliente(c);
+            }catch (ApplicationException e)
+            {
+                throw e;
+            }
         }
 
         public static Cliente ObtenerPorId(int id)

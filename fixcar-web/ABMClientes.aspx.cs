@@ -1,11 +1,11 @@
 ﻿using System;
-using fixcar_negocio;
-using fixcar_entidades;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using fixcar_negocio;
+using fixcar_entidades;
 
 public partial class ABMClientes : System.Web.UI.Page
 {
@@ -124,18 +124,36 @@ public partial class ABMClientes : System.Web.UI.Page
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
+        bool huboExcepcion = false;
+        string mensaje = "";
+        if (!(ViewState["idCliente"] == null))
+        {
+            Cliente c = new Cliente();
+            c.idCliente= int.Parse(ViewState["idCliente"].ToString());
+            try
+            {
 
-    }
+                GestorClientes.eliminarCliente(c);
+            }
+            catch (ApplicationException ex)
+            {
+                huboExcepcion = true;
+                mensaje = ex.Message;
 
-    
-    protected void gvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        gvClientes.PageIndex = e.NewPageIndex;
-        cargarGrilla();
-    }
-
-    protected void gvClientes_PageIndexChanged(object sender, EventArgs e)
-    {
-
+                //lbl_error.Text = ex.Message;
+                //lbl_error.ForeColor = System.Drawing.Color.Red;
+            }
+            finally {
+                if (huboExcepcion)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensaje + "');", true);
+                }
+                Inicio();
+                //Response.Redirect(Request.RawUrl);
+                
+            }
+            
+                
+        }
     }
 }
