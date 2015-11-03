@@ -128,7 +128,7 @@ namespace fixcar_daos
             try
             {
                 con.Open();
-                string sql = "DELETE FROM Clientes WHERE idCliente = @idCliente)";
+                string sql = "DELETE FROM Clientes WHERE idCliente = @idCliente";
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = sql;
@@ -137,8 +137,13 @@ namespace fixcar_daos
                 cmd.ExecuteNonQuery();
 
             }
+            
             catch (SqlException e)
             {
+                if (e.Number == 547)
+                {
+                    throw new ApplicationException("No se puede eliminar el cliente, este tiene un vehículo asignado");
+                }
                 throw new ApplicationException("Error al eliminar Cliente");
             }
             finally
