@@ -43,6 +43,8 @@
     <Compile Include="GestorClientes.cs" />
     <Compile Include="GestorFacturas.cs" />
     <Compile Include="GestorMarcas.cs" />
+    <Compile Include="GestorReparaciones.cs" />
+    <Compile Include="GestorRepuestos.cs" />
     <Compile Include="GestorTipoDocumento.cs" />
     <Compile Include="GestorVehiculos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
