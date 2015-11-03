@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GestorClientes.cs" />
+    <Compile Include="GestorEstadosReparacion.cs" />
     <Compile Include="GestorFacturas.cs" />
     <Compile Include="GestorMarcas.cs" />
     <Compile Include="GestorReparaciones.cs" />

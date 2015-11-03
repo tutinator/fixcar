@@ -19,5 +19,10 @@ namespace fixcar_negocio
         {
             return ReparacionDAO.ObtenerPorId(idReparacion);
         }
+        public static List<Reparacion> Obtener(int idVehiculo, int idEstado, decimal totalDesde, decimal totalHasta)
+        {
+            List<Reparacion> list = ReparacionDAO.Obtener(idVehiculo, idEstado, totalDesde, totalHasta);
+            return list;
+        }
     }
 }
