@@ -12,7 +12,11 @@ public partial class InformeReparaciones : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Inicio();
+        if (!IsPostBack)
+        {
+            Inicio();
+            ViewState["OrdenGvReparaciones"] = "FechaFin";
+        }
     }
 
 
@@ -26,7 +30,12 @@ public partial class InformeReparaciones : System.Web.UI.Page
     }
     private void cargarGrilla()
     {
-     
+        string orden = "FechaFin DESC";
+        if (ViewState["OrdenGvReparaciones"] != null)
+        {
+            orden = ViewState["OrdenGvReparaciones"].ToString();
+        }
+
         int idVehiculo = int.Parse(ddlVehiculos.SelectedValue);
         int idEstado = int.Parse(ddlEstados.SelectedValue);
 
@@ -42,7 +51,7 @@ public partial class InformeReparaciones : System.Web.UI.Page
             totalHasta = decimal.Parse(txtTotalHasta.Text);
         }
 
-        List<Reparacion> listaReparaciones = GestorReparaciones.Obtener(idVehiculo, idEstado, totalDesde, totalHasta);
+        List<Reparacion> listaReparaciones = GestorReparaciones.Obtener(idVehiculo, idEstado, totalDesde, totalHasta, orden);
         gvReparaciones.DataSource = listaReparaciones;
         gvReparaciones.DataBind();
 
@@ -62,8 +71,8 @@ public partial class InformeReparaciones : System.Web.UI.Page
     {
         List<Vehiculo> lista = GestorVehiculos.ObtenerTodos();
         ddlVehiculos.DataSource = lista;
-        ddlVehiculos.DataTextField = "dominio";
-        ddlVehiculos.DataValueField = "idVehiculo";
+        //ddlVehiculos.DataTextField = "dominio";
+        //ddlVehiculos.DataValueField = "idVehiculo";
         ddlVehiculos.DataBind();
         ddlVehiculos.Items.Insert(0, new ListItem("Todos", "0"));
         ddlVehiculos.SelectedIndex = 0;
@@ -74,8 +83,8 @@ public partial class InformeReparaciones : System.Web.UI.Page
     {
         List<EstadoReparacion> lista = GestorEstadosReparacion.ObtenerTodos();
         ddlEstados.DataSource = lista;
-        ddlEstados.DataTextField = "nombreEstado";
-        ddlEstados.DataValueField = "idEstado";
+        //ddlEstados.DataTextField = "nombreEstado";
+        //ddlEstados.DataValueField = "idEstado";
         ddlEstados.DataBind();
         ddlEstados.Items.Insert(0, new ListItem("Todos", "0"));
         ddlEstados.SelectedIndex = 0;
@@ -101,6 +110,22 @@ public partial class InformeReparaciones : System.Web.UI.Page
     protected void gvReparaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         gvReparaciones.PageIndex = e.NewPageIndex;
+        cargarGrilla();
+    }
+
+
+    protected void ddlVehiculos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void gvReparaciones_Sorting(object sender, GridViewSortEventArgs e)
+    {
+        //if (e.SortExpression == "vehiculo.dominio") { ViewState["OrdenGvReparaciones"] = "dominio"; }
+        //else if (e.SortExpression == "vehiculo.cliente.nombreCompleto") { ViewState["OrdenGvReparaciones"] = "apellido"; }
+        //else if (e.SortExpression == "estadoReparacion.nombreEstado") { ViewState["OrdenGvReparaciones"] = "nombreEstado"; }
+        //else if (e.SortExpression == "total") { ViewState["OrdenGvReparaciones"] = "totalMO"; }
+        ViewState["OrdenGvReparaciones"] = e.SortExpression; 
         cargarGrilla();
     }
 }

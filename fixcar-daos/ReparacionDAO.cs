@@ -140,7 +140,7 @@ namespace fixcar_daos
             
         }
 
-        public static List<Reparacion> Obtener(int idVehiculo, int idEstado, decimal totalDesde, decimal totalHasta)
+        public static List<Reparacion> Obtener(int idVehiculo, int idEstado, decimal totalDesde, decimal totalHasta, string orden)
         {
             List<Reparacion> listaReparaciones = new List<Reparacion>();
             SqlConnection con = new SqlConnection(cadena);
@@ -162,7 +162,7 @@ namespace fixcar_daos
                 }
                 if (idEstado != 0)
                 {
-                    where += " AND (EstadoReparacion.idEstado = @idEstado)";
+                    where += " AND (EstadosReparacion.idEstado = @idEstado)";
                     cmd.Parameters.AddWithValue("@idEstado", idEstado);
                 }
 
@@ -194,7 +194,10 @@ namespace fixcar_daos
                     sql += " WHERE ";
                     sql += where.Substring(5);
                 }
-
+                if(orden != "")
+                {
+                    sql += " ORDER BY " + orden;
+                }
                 cmd.CommandText = sql;
                 cmd.Connection = con;
                 SqlDataReader dr = cmd.ExecuteReader();

@@ -17,7 +17,7 @@
 
 
                             <label for="ddlVehiculos" class="col-md-offset-1">Dominio del Vehículo</label>
-                            <asp:DropDownList ID="ddlVehiculos" runat="server" DataValueField ="idVehiculo" CssClass="form-control input-sm col-md-offset-1"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlVehiculos" runat="server" DataValueField ="idVehiculo" DataTextField="dominio" CssClass="form-control input-sm col-md-offset-1" OnSelectedIndexChanged="ddlVehiculos_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -25,7 +25,7 @@
 
 
                             <label for="ddlEstados" class="col-md-offset-1">Estados de Reparacion</label>
-                            <asp:DropDownList ID="ddlEstados" runat="server" DataValueField ="idEstado" CssClass="form-control input-sm col-md-offset-1"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlEstados" runat="server" DataValueField ="idEstado" DataTextField ="nombreEstado" CssClass="form-control input-sm col-md-offset-1"></asp:DropDownList>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -43,11 +43,16 @@
                                 <span class="input-group-addon">y</span>
                                 <asp:TextBox ID="txtTotalHasta" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
+                            
                             <asp:CompareValidator ID="cvMontos" runat="server"
-                                ControlToValidate="txtTotalHasta"
                                 ControlToCompare="txtTotalDesde"
-                                Operator="GreaterThanEqual" Type="Currency"
-                                Text="Ingrese montos válidos" CssClass="text-danger" Display="Dynamic"></asp:CompareValidator>
+                                ControlToValidate="txtTotalHasta"
+                                Operator="GreaterThanEqual" Type="Double"
+                                Text="Ingrese un intervalo válido de montos" CssClass="text-danger" Display="Dynamic"></asp:CompareValidator>
+                        <asp:CompareValidator ID="cvTotalDesde" runat ="server" ControlToValidate ="txtTotalDesde" Type="Double"
+                             Text ="Ingrese montos válidos: formato xxxx,yy" CssClass="text-danger" Display ="Dynamic" ValidationGroup="montos"></asp:CompareValidator>
+                            <asp:CompareValidator ID="cvTotalHasta" runat ="server" ControlToValidate ="txtTotalHasta" Type="Double"
+                             Text ="Ingrese montos válidos: formato xxxx,yy" CssClass="text-danger" Display ="Dynamic" ValidationGroup="montos"></asp:CompareValidator>
                         </div>
                     </div>
                 </div>
@@ -71,14 +76,14 @@
             </div>
                     <div class="panel-body">
 
-                        <asp:GridView ID="gvReparaciones" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="true" AllowSorting="true" OnPageIndexChanging="gvReparaciones_PageIndexChanging">
+                        <asp:GridView ID="gvReparaciones" runat="server" CssClass="table table-hover table-bordered table-condensed table-striped table-responsive" AutoGenerateColumns="False" AllowPaging="true" AllowSorting="true" OnPageIndexChanging="gvReparaciones_PageIndexChanging" OnSorting="gvReparaciones_Sorting">
                             <Columns>
                                 <asp:BoundField DataField="idReparacion" HeaderText="ID" Visible="false" />
-                                <asp:BoundField DataField="vehiculo.dominio" HeaderText="Dominio" SortExpression="vehiculo.dominio" />
-                                <asp:BoundField DataField="vehiculo.cliente.nombreCompleto" HeaderText="Cliente" SortExpression="vehiculo.cliente.nombreCompleto" />
-                                <asp:BoundField DataField="estadoReparacion.nombreEstado" HeaderText="Estado" SortExpression="estadoReparacion.nombreEstado"  />
-                                <asp:BoundField DataField="fechaFin" HeaderText="Fecha de Fin" SortExpression="fechaFactura" DataFormatString="{0:d}" />
-                                <asp:BoundField DataField="totalMO" HeaderText="Total" SortExpression="total" DataFormatString="{0:C}" />
+                                <asp:BoundField DataField="vehiculo.dominio" HeaderText="Dominio" SortExpression="dominio" />
+                                <asp:BoundField DataField="vehiculo.cliente.nombreCompleto" HeaderText="Cliente" SortExpression="apellido" />
+                                <asp:BoundField DataField="estadoReparacion.nombreEstado" HeaderText="Estado" SortExpression="nombreEstado"  />
+                                <asp:BoundField DataField="fechaFin" HeaderText="Fecha de Fin" SortExpression="fechaFin DESC" DataFormatString="{0:d}" />
+                                <asp:BoundField DataField="totalMO" HeaderText="Total" SortExpression="totalMO" DataFormatString="{0:C}" />
                             </Columns>
                         </asp:GridView>
                     </div>
