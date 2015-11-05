@@ -47,6 +47,7 @@
     <Compile Include="GestorReparaciones.cs" />
     <Compile Include="GestorRepuestos.cs" />
     <Compile Include="GestorTipoDocumento.cs" />
+    <Compile Include="GestorTrabajos.cs" />
     <Compile Include="GestorVehiculos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

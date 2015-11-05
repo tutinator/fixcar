@@ -24,5 +24,16 @@ namespace fixcar_negocio
             List<Reparacion> list = ReparacionDAO.Obtener(idVehiculo, idEstado, totalDesde, totalHasta, orden);
             return list;
         }
+
+        public static void InsertarReparacion(Reparacion r, List<DetalleReparacion> listaDetalles)
+        {
+            ReparacionDAO.InsertarReparacion(r, listaDetalles);
+        }
+
+        public static int ObtenerNumeroMaximo()
+        {
+            return ReparacionDAO.ObtenerMaximoNumero();
+        }
+
     }
 }

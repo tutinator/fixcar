@@ -16,6 +16,12 @@ namespace fixcar_negocio
             return list;
         }
 
+        public static List<Vehiculo> ObtenerTodos(string orden)
+        {
+            List<Vehiculo> list = VehiculoDAO.ObtenerTodos(orden);
+            return list;
+        }
+
         public static Vehiculo ObtenerPorId(int id)
         {
             return VehiculoDAO.ObtenerPorId(id);
