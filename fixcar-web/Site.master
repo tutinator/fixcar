@@ -62,10 +62,13 @@
                         <li><a runat="server" href="~/">Inicio</a></li>
 
                         <li><a runat="server" href="~/ABMCVehiculos">Vehiculos</a></li>
-                        <%--<li><a runat="server" href="~/ABMClientes">Clientes</a></li>--%>
+                        <li><a runat="server" href="~/ABMClientes">Clientes</a></li>
 
                         <li><a runat="server" href="~/Facturar">Facturar</a></li>
                         <li><a runat="server" href="~/InformeFacturas">Listado de Facturas</a></li>
+
+                        <li><a runat="server" href="~/RegistrarReparacion">Reg. Reparación</a></li>
+                        <li><a runat="server" href="~/InformeReparaciones">Listado de Reparaciones</a></li>
 
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
                     </ul>

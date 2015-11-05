@@ -70,21 +70,35 @@ public partial class ABMClientes : System.Web.UI.Page
         else rbMasculino.Checked = true;
 
         btnEliminar.Enabled = true;
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
     }
 
     protected void btnNuevo_Click(object sender, EventArgs e)
     {
+        Nuevo();
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
+    }
+
+    protected void Nuevo()
+    {
         ddlTipoDocumento.ClearSelection();
         ddlTipoDocumento.SelectedIndex = 0;
-       
-        ViewState["idCliente"] = null;
-        txtNombre.Text = string.Empty;
-        txtApellido.Text = string.Empty;
-        txtNumeroDocumento.Text = string.Empty;
-        txtFechaNacimiento.Text = string.Empty;
         rbFemenino.Checked = false;
         rbMasculino.Checked = false;
+
+        ViewState["idCliente"] = null;
+        txtApellido.Text = string.Empty;
+        txtNombre.Text = string.Empty;
+        txtNumeroDocumento.Text = string.Empty;
+        txtFechaNacimiento.Text = string.Empty;
+
+        //txtDominio.Enabled = true;
         btnEliminar.Enabled = false;
+
     }
 
     protected void btnGuardar_Click1(object sender, EventArgs e)
@@ -110,22 +124,35 @@ public partial class ABMClientes : System.Web.UI.Page
         if (ViewState["idCliente"] == null)
         {
             //NUEVO CLIENTE
-            GestorClientes.insertarCliente(c);
+            try {
+                GestorClientes.insertarCliente(c);
+                alertaExito.Visible = true;
+            }
+            catch (Exception ex) {
+                alertaError.Visible = true;
+            }
         }
         else
         {
             //ACTUALIZAR CLIENTE
-            c.idCliente = int.Parse(ViewState["idCliente"].ToString());
-            GestorClientes.actualizarCliente(c);
+            try {
+                c.idCliente = int.Parse(ViewState["idCliente"].ToString());
+                GestorClientes.actualizarCliente(c);
+                alertaExito.Visible = true;
+            }
+            catch(ApplicationException ex)
+            {
+                alertaError.Visible = true;
+            }
+            
         }
-        //Inicio();
-        Response.Redirect(Request.RawUrl);
+        Inicio();
+        //Response.Redirect(Request.RawUrl);
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
-        bool huboExcepcion = false;
-        string mensaje = "";
+       
         if (!(ViewState["idCliente"] == null))
         {
             Cliente c = new Cliente();
@@ -134,26 +161,23 @@ public partial class ABMClientes : System.Web.UI.Page
             {
 
                 GestorClientes.eliminarCliente(c);
+                alertaExito.Visible = true;
             }
             catch (ApplicationException ex)
             {
-                huboExcepcion = true;
-                mensaje = ex.Message;
-
-                //lbl_error.Text = ex.Message;
-                //lbl_error.ForeColor = System.Drawing.Color.Red;
+                alertaErrorEliminacion.Visible = true;
             }
-            finally {
-                if (huboExcepcion)
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + mensaje + "');", true);
-                }
-                Inicio();
-                //Response.Redirect(Request.RawUrl);
-                
-            }
-            
+                      
                 
         }
+    }
+
+    protected void gvClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        gvClientes.PageIndex = e.NewPageIndex;
+        cargarGrilla();
+        alertaExito.Visible = false;
+        alertaError.Visible = false;
+        alertaErrorEliminacion.Visible = false;
     }
 }

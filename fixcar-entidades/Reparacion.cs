@@ -13,6 +13,7 @@ namespace fixcar_entidades
         public DateTime? fechaFin { get; set; }
         public Vehiculo vehiculo { get; set; }
         public EstadoReparacion estadoReparacion { get; set; }
-        public decimal? totalMO { get; set; }        
+        public decimal? totalMO { get; set; }
+
     }
 }

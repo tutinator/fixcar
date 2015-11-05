@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ClienteDAO.cs" />
     <Compile Include="DetalleFacturaDAO.cs" />
+    <Compile Include="EstadoReparacionDAO.cs" />
     <Compile Include="FacturaDAO.cs" />
     <Compile Include="MarcaDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
