@@ -66,7 +66,29 @@ public partial class SiteMaster : MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if ((string)Session["Usuario"] == "admin")
+        {
+            infoFacturas.Visible = true;
+            infoReparaciones.Visible = true;
+            abmclientes.Visible = true;
+            abmvehiculos.Visible = true;
+            facturar.Visible = true;
+            regReparacion.Visible = true;
+        }
+        if ((string)Session["Usuario"] == "mecanico")
+        {
+            abmclientes.Visible = true;
+            abmvehiculos.Visible = true;
+            infoReparaciones.Visible = true;
+            regReparacion.Visible = true;
+        }
 
+        if ((string)Session["Usuario"] == "vendedor")
+        {
+            abmclientes.Visible = true;
+            infoFacturas.Visible = true;
+            facturar.Visible = true;
+        }
     }
 
     protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

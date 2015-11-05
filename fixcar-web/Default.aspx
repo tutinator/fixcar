@@ -10,25 +10,27 @@
 
      <%--Parte Trumba--%>
     <div class="row">
-        <div class="col-md-4">
-            <h2>Gestión de Clientes</h2>
+        <asp:Panel id="pGestionClientes" runat ="server" CssClass ="col-md-4" Visible ="false">
+             <h2>Gestión de Clientes</h2>
             <p>
                 Realizar una alta, baja, modificación o consulta de un vehículo y sus datos.
             </p>
             <p>
                 <a class="btn btn-default" href="ABMClientes">Ir &raquo;</a>
             </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Registrar Reparacion</h2>
+        </asp:Panel>
+
+         <asp:Panel id="pRegReparacion" runat ="server" CssClass ="col-md-4" Visible ="false">
+             <h2>Registrar Reparacion</h2>
             <p>
                Registrar la reparación a realizar para un vehículo con los trabajos a ejecutar. Permite presupuestar la reparación y conocer la fecha estimada de finalización de la misma.
             </p>
             <p>
                 <a class="btn btn-default" href="RegistrarReparacion">Ir &raquo;</a>
             </p>
-        </div>
-        <div class="col-md-4">
+         </asp:Panel>
+      
+        <asp:Panel id="pInfoReparaciones" runat ="server" CssClass ="col-md-4" Visible ="false">
             <h2>Informe de Reparaciones</h2>
             <p>
                 Informe de las reparaciones realizadas mostrando los datos del cliente, el vehículo reparado, la fecha de finalización y el monto de la mano de obra.
@@ -36,11 +38,12 @@
             <p>
                 <a class="btn btn-default" href="InformeReparaciones">Ir &raquo;</a>
             </p>
-        </div>
+        </asp:Panel>
+        
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <asp:Panel id="pGestionVehiculos" runat ="server" CssClass ="col-md-4" Visible ="false">
             <h2>Gestión de Vehículos</h2>
             <p>
                 Realizar una alta, baja, modificación o consulta de un vehículo y sus datos.
@@ -48,8 +51,9 @@
             <p>
                 <a class="btn btn-default" href="ABMCVehiculos">Ir &raquo;</a>
             </p>
-        </div>
-        <div class="col-md-4">
+        </asp:Panel>
+      
+        <asp:Panel id="pFacturar" runat ="server" CssClass ="col-md-4" Visible ="false">
             <h2>Facturar</h2>
             <p>
                Registrar la facturación de una reparación realizada a un vehículo y de los repuestos utilizados.
@@ -57,16 +61,18 @@
             <p>
                 <a class="btn btn-default" href="Facturar">Ir &raquo;</a>
             </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Informe de Facturas</h2>
+        </asp:Panel>
+   
+        <asp:Panel id="pInfoFacturas" runat ="server" CssClass ="col-md-4" Visible ="false">
+                        <h2>Informe de Facturas</h2>
             <p>
                 Informe de las facturas registradas mostrando los datos del cliente, el vehículo reparado, el monto de mano de obra y el monto total facturado.
             </p>
             <p>
                 <a class="btn btn-default" href="InformeFacturas">Ir &raquo;</a>
             </p>
-        </div>
+        </asp:Panel>
+      
     </div>
 
    
