@@ -60,6 +60,62 @@ namespace fixcar_daos
             return list;
         }
 
+        public static List<Vehiculo> ObtenerTodos(string orden)
+        {
+            List<Vehiculo> list = new List<Vehiculo>();
+            SqlConnection cn = new SqlConnection();
+            cn.ConnectionString = cadena;
+            try
+            {
+                cn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = cn;
+
+                string consulta = "SELECT V.idVehiculo, V.dominio, V.km, pinturaDanada, V.idMarca, M.nombreMarca, V.idCliente, C.nombre, C.apellido, V.ano FROM Vehiculos V JOIN Marcas M ON V.idMarca = M.idMarca JOIN Clientes C ON C.idCliente = V.idCliente";
+                if(orden != null)
+                    consulta += " ORDER BY " + orden;
+                cmd.CommandText = consulta;
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Vehiculo v = new Vehiculo();
+                    v.idVehiculo = (int)dr["idVehiculo"];
+                    v.dominio = dr["dominio"].ToString();
+
+                    if (dr["km"] == DBNull.Value) v.km = null;
+                    else v.km = (int?)dr["km"];
+
+                    v.pinturaDanada = (Boolean)dr["pinturaDanada"];
+                    v.ano = (int)dr["ano"];
+
+                    Marca m = new Marca();
+                    m.idMarca = (int)dr["idMarca"];
+                    m.nombreMarca = dr["nombreMarca"].ToString();
+
+                    v.marca = m;
+
+                    Cliente c = new Cliente();
+                    c.idCliente = (int)dr["idCliente"];
+                    c.apellido = dr["apellido"].ToString();
+                    c.nombre = dr["nombre"].ToString();
+                    c.completarNombre();
+                    v.cliente = c;
+
+                    list.Add(v);
+                }
+            }
+            catch(SqlException e) { throw e; }
+            finally
+            {
+                
+                cn.Close();
+            }
+            
+            return list;
+        }
+
         public static Vehiculo ObtenerPorId(int id)
         {
             Vehiculo v = new Vehiculo();

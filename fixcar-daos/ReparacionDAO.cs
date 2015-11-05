@@ -244,6 +244,83 @@ namespace fixcar_daos
             return listaReparaciones;
         }
 
+        public static void InsertarReparacion(Reparacion r, List<DetalleReparacion> listaDetalles)
+        {
+
+            SqlConnection con = new SqlConnection(cadena);
+
+            con.Open();
+            SqlTransaction tran = con.BeginTransaction();
+            //Insertamos la factura primero
+            string sql = "INSERT INTO Reparaciones (fechaFin, idVehiculo, idEstado, totalMO) VALUES (@fechaFin, @idVehiculo, @idEstado, @totalMO); SELECT @@Identity";
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = sql;
+            cmd.Connection = con;
+            cmd.Transaction = tran;
+
+            cmd.Parameters.AddWithValue("@fechaFin", r.fechaFin);
+            cmd.Parameters.AddWithValue("@idVehiculo", r.vehiculo.idVehiculo);
+            cmd.Parameters.AddWithValue("@idEstado", r.estadoReparacion.idEstado);
+            cmd.Parameters.AddWithValue("@totalMO", r.totalMO);
+
+            try
+            {
+                int idReparacion = Convert.ToInt32(cmd.ExecuteScalar());
+                r.idReparacion = idReparacion;
+
+                //Insertamos los detalles luego
+                foreach (var dr in listaDetalles)
+                {
+                    dr.reparacion= r;
+                    DetalleReparacionDAO.InsertarDetalleReparacion(dr, tran, con);
+                }
+
+                ////Marcar como facturada la reparacion
+                //ReparacionDAO.Facturar(f.reparacion.idReparacion, con, tran);
+
+                tran.Commit();
+            }
+            catch (Exception e)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Error al insertar factura: " + e.Message);
+            }
+
+
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public static int ObtenerMaximoNumero()
+        {
+            int numeroMaximo = 0;
+            SqlConnection con = new SqlConnection(cadena);
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand();
+                string sql = "SELECT MAX(idReparacion) FROM Reparaciones";
+
+                cmd.CommandText = sql;
+                cmd.Connection = con;
+                numeroMaximo = (int)cmd.ExecuteScalar();
+            }
+            catch (SqlException e)
+            {
+                throw new ApplicationException("Surgió un porblema al obtener ultima reparación");
+            }
+            finally
+            {
+                con.Close();
+            }
+            return numeroMaximo;
+        }
+
     }
+
+
     }
 
