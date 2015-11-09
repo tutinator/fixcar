@@ -60,7 +60,7 @@ public partial class RegistrarReparacion : System.Web.UI.Page
     private void CargarGrillas()
     {
         CargarGrillaVehiculos();
-       // CargarGrillaTrabajos();
+        CargarGrillaTrabajos();
     }
 
     private void CargarGrillaVehiculos()
@@ -152,10 +152,18 @@ public partial class RegistrarReparacion : System.Web.UI.Page
                     int hsRestantes = 21 - DateTime.Now.Hour;
                     if(hsReparacion <= hsRestantes)
                     {
-                        string numString = Convert.ToString(hsReparacion / 6);
-                        diasReparacion = int.Parse(numString.Split(',')[0]);
-                        float partedecimal = float.Parse("0," + numString.Split(',')[1]);
-                        hsDelDia = (int)Math.Round(partedecimal * 6);
+                        if (hsReparacion % 6 == 0)
+                        {
+                            diasReparacion = (int)(hsReparacion / 6);
+                            hsDelDia = 0;
+                        }
+                        else
+                        {
+                            string numString = Convert.ToString(hsReparacion / 6);
+                            diasReparacion = int.Parse(numString.Split(',')[0]);
+                            float partedecimal = float.Parse("0," + numString.Split(',')[1]);
+                            hsDelDia = (int)Math.Round(partedecimal * 6);
+                        }
 
                     }
                     else

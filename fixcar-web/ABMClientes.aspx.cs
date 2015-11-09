@@ -61,7 +61,7 @@ public partial class ABMClientes : System.Web.UI.Page
         txtApellido.Text = c.apellido.ToString();
         ddlTipoDocumento.SelectedValue = c.tipoDocumento.idTipoDocumento.ToString();
         txtNumeroDocumento.Text = c.numeroDocumento.ToString();
-        txtFechaNacimiento.Text = c.fechaNacimiento.ToString();
+        txtFechaNacimiento.Text = c.fechaNacimiento.ToString("dd/MM/yyyy");
         if(c.genero == null)
         {
             rbFemenino.Checked = false;

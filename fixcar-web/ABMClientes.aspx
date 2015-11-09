@@ -100,10 +100,12 @@
                 changeMonth: true,
                 changeYear: true,
                 //numberOfMonths: 3,
-                //maxDate: "+1D",
+                maxDate: "D",
+                minDate: new Date(1900, 1 - 1, 1),
+                //maxDate: Date.now,
                 dateFormat: 'dd/mm/yy',
                 onClose: function (selectedDate) {
-                    $("[id$=txtFechaNacimiento]").datepicker("option", "minDate", selectedDate);
+                    $("[id$=txtFechaNacimiento]").datepicker("option","minDate", selectedDate);
                 }
             });
 

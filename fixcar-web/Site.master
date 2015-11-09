@@ -59,16 +59,16 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Inicio</a></li>
+                        <li><a id="inicio" runat="server" href="~/">Inicio</a></li>
 
-                        <li><a runat="server" href="~/ABMCVehiculos">Vehiculos</a></li>
-                        <li><a runat="server" href="~/ABMClientes">Clientes</a></li>
+                        <li><a id="abmvehiculos" runat="server" href="~/ABMCVehiculos" visible="false">Vehiculos</a></li>
+                        <li><a id="abmclientes" runat="server" href="~/ABMClientes" visible="false">Clientes</a></li>
 
-                        <li><a runat="server" href="~/Facturar">Facturar</a></li>
-                        <li><a runat="server" href="~/InformeFacturas">Listado de Facturas</a></li>
+                        <li><a  id="facturar" runat="server" href="~/Facturar" visible="false">Facturar</a></li>
+                        <li><a id="infoFacturas" runat="server" href="~/InformeFacturas" visible="false">Listado de Facturas</a></li>
 
-                        <li><a runat="server" href="~/RegistrarReparacion">Reg. Reparación</a></li>
-                        <li><a runat="server" href="~/InformeReparaciones">Listado de Reparaciones</a></li>
+                        <li><a id="regReparacion" runat="server" href="~/RegistrarReparacion" visible="false">Reg. Reparación</a></li>
+                        <li><a id ="infoReparaciones" runat="server" href="~/InformeReparaciones" visible="false">Listado de Reparaciones</a></li>
 
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
                     </ul>
@@ -76,7 +76,7 @@
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
                                 <%--<li><a runat="server" href="~/Account/Register">Registrarse</a></li>--%>
-                                <%--<li><a runat="server" href="~/Account/Login">Iniciar Sesión</a></li>--%>
+                                <li><a runat="server" href="~/Login">Iniciar Sesión</a></li>
                             </ul>
                         </AnonymousTemplate>
                         <LoggedInTemplate>
